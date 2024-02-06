@@ -1,6 +1,6 @@
 const express= require('express');
 const routes=require('./router/router');
-const port=8001;
+const port=8006;
 const app=express();
 const router=express.Router();
 routes(router);
