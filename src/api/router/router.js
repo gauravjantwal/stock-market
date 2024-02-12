@@ -10,7 +10,7 @@ module.exports = function (router) {
   router.get('/timeseriesdaily', timeseriescontroller.gettimeseriesdaily);
   router.post('/user/signup', rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // max 100 requests per windowMs
+    max: 5, // max 10 requests per windowMs
     headers: true,
     message: 'You have exceeded your 3 requests per 15 minute limit.'
   }), usercontroller.signup);
