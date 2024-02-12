@@ -13,8 +13,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-            trim: true,
-            index: { unique: true }
+            trim: true
         },
         salt: {
             type: String
