@@ -7,7 +7,7 @@ const companyoverviewcontroller = require("../controllers/companyoverviewcontrol
 module.exports = function (router) {
   router.get("/user", usercontroller.getdefault);
   router.get("/dashboard", dashboardcontroller.getdashboard);
-  router.get("/timeseriesdaily", timeseriescontroller.gettimeseriesdaily);
+  router.get("/timeseriesdaily/:stocksymbol", timeseriescontroller.gettimeseriesdaily);
   router.get(
     "/newsandsentiments",
     newsandsentimentscontroller.getnewsandsentiments
