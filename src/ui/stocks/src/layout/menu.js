@@ -1,24 +1,37 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import {Nav} from 'react-bootstrap'
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
-const Menu = () =>{
-    return (
-      <Nav className="flex-column">
-      <Nav.Link as={Link} to="/">
-        Dashboard
-      </Nav.Link>
-      <Nav.Link as={Link} to="/watchlist">
-        Watch List
-      </Nav.Link>
-      <Nav.Link as={Link} to="/ipo">
-        IPO
-      </Nav.Link>      
-      <Nav.Link as={Link} to="/about">
-        About
-      </Nav.Link>      
-    </Nav>
-    )
-}
+const Menu = () => {
+  return (
+    <div className="collapse navbar-collapse mt-3" id="collapsibleNavbar">
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <NavLink activeClassName="active" className="nav-link" to="/">
+            Dashboard
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            activeClassName="active"
+            className="nav-link"
+            to="/watchlist"
+          >
+            WatchList
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink activeClassName="active" className="nav-link" to="/ipo">
+            IPO
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink activeClassName="active" className="nav-link" to="/about">
+            About
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  );
+};
 
 export default Menu;
