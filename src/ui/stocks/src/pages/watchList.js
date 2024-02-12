@@ -22,6 +22,7 @@ const WatchList = () => {
 
   return (
     <div>
+        <h3>All Watchlists</h3><br></br>
         <div className="row">
         <div className="col-6 col-md-6 float-left">
         <form className="d-flex">

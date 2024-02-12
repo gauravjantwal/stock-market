@@ -37,7 +37,7 @@ const WatchListDetails = ({ rowData }) => {
               <td>Balance: 6532 &nbsp; &nbsp;&nbsp;&nbsp;Required : 0</td>
           </tr>
           <tr>
-          <td><button className="btn btn-success" >{buttonText}</button></td>
+          <td><button className={`btn ${buttonText == 'Buy' ? 'btn-success' : 'btn-danger'}`}>{buttonText}</button></td>
           </tr>
         </tbody>
       </table> 
