@@ -50,6 +50,4 @@ userSchema.methods = {
     }
 }
 
-const User = module.exports = mongoose.model("User", userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);
