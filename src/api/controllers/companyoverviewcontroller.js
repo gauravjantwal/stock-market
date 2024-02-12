@@ -18,10 +18,10 @@ exports.getcompanyoverview = async function (req, res) {
       cachedData = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
     }
 
-    if (cachedData && cachedData[replacedApiUrl]) {
+    if (cachedData && cachedData[stockSymbol]) {
       // If cached data is found, send it as response
       console.log("Data found in cache.");
-      res.send(cachedData[replacedApiUrl]);
+      res.send(cachedData[stockSymbol]);
     } else {
       console.log("If no cached data found, fetch from API");
       // If no cached data found, fetch from API
@@ -31,9 +31,9 @@ exports.getcompanyoverview = async function (req, res) {
       // Update or create cache in JSON file
       let newData;
       if (cachedData) {
-        newData = { ...cachedData, [replacedApiUrl]: responseData };
+        newData = { ...cachedData, [stockSymbol]: responseData };
       } else {
-        newData = { [replacedApiUrl]: responseData };
+        newData = { [stockSymbol]: responseData };
       }
       fs.writeFileSync(dataFilePath, JSON.stringify(newData));
 
