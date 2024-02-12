@@ -25,12 +25,10 @@ const userSchema = new mongoose.Schema(
     { timestamps: true }
 );
 userSchema.virtual("password")
-    .set(async function (password) {
+    .set(function (password) {
         this._password = password
-        bcrypt.genSalt(10, (err, salt) => {
-            this.salt = salt;
-        });
-        this.encry_password = await this.securePassword(password)
+        this.salt =  bcrypt.genSaltSync(10);
+        this.encry_password = this.securePassword(password)
     })
     .get(function () {
         return this._password
@@ -38,14 +36,14 @@ userSchema.virtual("password")
 
 
 userSchema.methods = {
-    authenticate: async function (plainpassword) {
-        const result = await bcrypt.compare(plainpassword, this.encry_password);
+    authenticate: function (plainpassword) {
+        const result = bcrypt.compareSync(plainpassword, this.encry_password);
         return result;
     },
-    securePassword: async function (plainpassword) {
+    securePassword: function (plainpassword) {
         if (!plainpassword) return ""; //throw error
         try {
-            return await bcrypt.hash(plainpassword, this.salt)
+            return bcrypt.hashSync(plainpassword, this.salt)
         } catch (err) {
             return ""
         }
