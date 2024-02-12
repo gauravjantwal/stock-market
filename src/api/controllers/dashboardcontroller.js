@@ -4,7 +4,7 @@ const axios = require("axios");
 const apiUrl =
   "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo";
 
-// Make a GET request to the API ABC
+// Make a GET request to the API
 exports.getdashboard = function (req, res) {
   axios
     .get(apiUrl)
