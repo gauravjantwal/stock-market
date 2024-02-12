@@ -19,11 +19,12 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-jwt": "^8.4.1",
+    "express-rate-limit": "^7.1.5",
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.1",
     "npm": "^10.4.0",
-    "uuid": "^9.0.1"
+    "sqlstring": "^2.3.3"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"

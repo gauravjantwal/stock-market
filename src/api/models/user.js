@@ -1,7 +1,5 @@
-
-const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
-const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
     {
@@ -28,10 +26,12 @@ const userSchema = new mongoose.Schema(
     { timestamps: true }
 );
 userSchema.virtual("password")
-    .set(function (password) {
+    .set(async function (password) {
         this._password = password
-        this.salt = uuidv4();
-        this.encry_password = this.securePassword(password)
+        bcrypt.genSalt(10, (err, salt) => {
+            this.salt = salt;
+        });
+        this.encry_password = await this.securePassword(password)
     })
     .get(function () {
         return this._password
@@ -39,13 +39,14 @@ userSchema.virtual("password")
 
 
 userSchema.methods = {
-    authenticate: function (plainpassword) {
-        return this.securePassword(plainpassword) == this.encry_password
+    authenticate: async function (plainpassword) {
+        const result = await bcrypt.compare(plainpassword, this.encry_password);
+        return result;
     },
-    securePassword: function (plainpassword) {
+    securePassword: async function (plainpassword) {
         if (!plainpassword) return ""; //throw error
         try {
-            return crypto.createHmac("sha256", this.salt).update(plainpassword).digest("hex")
+            return await bcrypt.hash(plainpassword, this.salt)
         } catch (err) {
             return ""
         }
