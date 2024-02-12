@@ -1,5 +1,13 @@
 .App {
   text-align: center;
+  width: 80vw;
+  height: 100vh;
+}
+
+.App__Title  {
+  letter-spacing: 2px;
+  font-weight: 300;
+  text-transform: uppercase;
 }
 
 .App-logo {

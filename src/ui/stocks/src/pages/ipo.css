@@ -1,0 +1,26 @@
+.ipo_header2 {
+    max-width: 1110px;
+    width: 100%;
+    margin: 0 auto;
+    color: brown;
+    margin-top: 3rem;
+}
+
+.ipo_header3 {
+    margin-top: 4rem;
+}
+
+.table_class {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--gray150);
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 2rem;
+}
+
+.table_th_td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
