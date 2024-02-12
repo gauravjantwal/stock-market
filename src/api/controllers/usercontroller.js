@@ -1,7 +1,7 @@
 const User = require('../models/user');
 
 exports.signup = async (req, res) => {
-    let user = await User.findOne({ email: req.body.email });
+    let user = await User.findOne({ email:  SqlString.escape(req.body.email) });
     if (user) {
         throw new Error("User already registered with requested email.");
     }
