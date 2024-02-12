@@ -36,6 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: #ECFFDC
+}
 .card-img {
   width: 20%;
   height: 20%;
