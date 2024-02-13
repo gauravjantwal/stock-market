@@ -18,7 +18,9 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res) => {
     const { email, password } = req.body;
+    
     let user = await User.findOne({ email: { $eq: email } });
+
     if (!user) {
         throw new AuthorizationError('Invalid User or Passoword');
     }
@@ -26,7 +28,6 @@ const signIn = async (req, res) => {
     //Authenticate the User
     if (!user.authenticate(password)) {
         throw new AuthorizationError('Invalid User or Passoword');
-
     }
 
     //Creating token
@@ -35,8 +36,10 @@ const signIn = async (req, res) => {
     //Pass token into cookie
     res.cookie('token', token, { expire: new Date() + 1 });
 
-    //Send response to Front End
+    // Read name from user object
     const { name } = user
+
+    //Send response
     return res.json({
         user: {
             name,

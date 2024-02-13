@@ -16,8 +16,8 @@ Use following commands to setup nodejs project:
 
 ### 1. User Sign Up
 
-* Path:
-	```/user/signup```
+* Path: `/user/signup`
+* Rate Limit: 5 requests in 15 mins
 * Payload:
 	
 	```
@@ -31,10 +31,12 @@ Use following commands to setup nodejs project:
 	* CODE: 201 - User created
  	* CODE: 400 - Bad Request (with message)
  	* CODE: 409 - Conflict (with message)
+	* CODE: 429 - Too Many Requests
   	* CODE: 500 - Some unexpected error
 
 ### 2. User Sign In
 * Path: `/user/signin`
+* Rate Limit: 5 requests in 15 mins
 * Payload:
 	```
 	{
@@ -53,4 +55,5 @@ Use following commands to setup nodejs project:
 		}
    		```
    	* CODE: 401 - Authorization Error (with message)
+	* CODE: 429 - Too Many Requests
     * CODE: 500 - Some unexpected error
