@@ -1,4 +1,3 @@
-//const sqlString = require('sqlstring');
 const { BadRequestError, AuthorizationError } = require('../models/errors');
 const db = require('../utils/db');
 const User = db.User;
@@ -6,9 +5,8 @@ const config = require("../config/config.json");
 const jwt = require('jsonwebtoken');
 
 const signUp = async (req, res) => {
-    //const userEmail = sqlString.escape(req.body.email);
     const userEmail = req.body.email;
-    let user = await User.findOne({ email: userEmail });
+    let user = await User.findOne({ email: { $eq: userEmail } });
     if (user) {
         throw new BadRequestError('User already registered with email "' + userEmail + '".', 409);
     }
@@ -18,8 +16,8 @@ const signUp = async (req, res) => {
 }
 
 const signIn = async (req, res) => {
-    const { email, password } = req.body
-    let user = await User.findOne({ email });
+    const { email, password } = req.body;
+    let user = await User.findOne({ email: { $eq: email } });
     if (!user) {
         throw new AuthorizationError('Invalid User or Passoword');
     }
