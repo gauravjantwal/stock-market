@@ -12,7 +12,8 @@ const signUp = async (req, res) => {
     }
     user = new User(req.body);
     await user.save(user);
-    res.json(user);
+    res.status(201);
+    res.send();
 }
 
 const signIn = async (req, res) => {
@@ -35,10 +36,9 @@ const signIn = async (req, res) => {
     res.cookie('token', token, { expire: new Date() + 1 });
 
     //Send response to Front End
-    const { _id, name } = user
+    const { name } = user
     return res.json({
         user: {
-            _id,
             name,
             email
         }
