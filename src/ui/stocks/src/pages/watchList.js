@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import WatchListDetails from './watchlist-details';
+import ViewWatchList from './view-watchlist';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 const WatchList = () => {
   // Define some sample table data
@@ -14,10 +15,16 @@ const WatchList = () => {
   // State to hold the data of the clicked row
   const [clickedRowData, setClickedRowData] = useState(null);
 
+  const history = useNavigate();
+
   // Event handler to handle row click
   const handleRowClick = (rowData) => {
     setShowTable(true);
     setClickedRowData(rowData);
+  };
+  // Event handler to handle row click
+  const handleNameClick = (rowData) => {
+   // history(`/watchlist-details-page/${rowData.id}`);
   };
 
   return (
@@ -48,8 +55,8 @@ const WatchList = () => {
           <tbody>
             {tableData.map((row) => (
               <tr key={row.id} onClick={() => handleRowClick(row)}>
-                <td>{row.id}</td>
-                <td>{row.companyName}</td>
+                <td> <NavLink to={`/details/${row.id}`} >{row.id}</NavLink></td>
+                <td><NavLink to={`/details/${row.companyName}`} >{row.companyName}</NavLink></td>
                 <td>{row.marketPrice}</td>
                 <td>{row.dayChange}</td>
               </tr>
@@ -57,7 +64,7 @@ const WatchList = () => {
           </tbody>
         </table>
         </div>
-        <div className="col-6 col-md-6 float-left">{showTable && <WatchListDetails rowData={clickedRowData} />}
+        <div className="col-6 col-md-6 float-left">{showTable && <ViewWatchList rowData={clickedRowData} />}
         </div>
     </div>
     </div>

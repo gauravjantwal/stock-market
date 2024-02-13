@@ -1,12 +1,13 @@
 import "./App.css";
 import React from "react";
-import {  Routes, Route, Link } from "react-router-dom";
+import {Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import About from "./pages/about";
 import watchList from "./pages/watchList";
 import IPO from "./pages/ipo";
 import Menu from "./layout/menu";
 import logo from './logo.webp';
+import WatchListDetailsPage from "./pages/watchlist-details-page";
 
 function App() {
   return (
@@ -38,6 +39,10 @@ function App() {
             <Route path="/watchlist" Component={watchList} />
             <Route path="/ipo" Component={IPO} />
             <Route path="/about" Component={About} />
+            <Route path="/details">
+              <Route path=":id" Component={WatchListDetailsPage}></Route>
+              <Route path=":name" Component={WatchListDetailsPage}></Route>
+            </Route> 
           </Routes>
         </div>
       </div>
