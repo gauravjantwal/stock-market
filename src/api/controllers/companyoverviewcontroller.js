@@ -1,50 +1,16 @@
-const axios = require("axios");
-const fs = require("fs");
-const path = require("path");
+const companyOverviewService = require("../services/companyoverviewservice");
 
-const apiUrl =
-  "https://www.alphavantage.co/query?function=OVERVIEW&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ";
-
-const dataFilePath = path.join(__dirname, "../cache/companyoverview.json");
-
-// Make a GET request to the API
-exports.getcompanyoverview = async function (req, res) {
-  try {
-    let stockSymbol = req.params.stocksymbol;
-    const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
-    // Check if data is cached in the JSON file
-    let cachedData;
-    if (fs.existsSync(dataFilePath)) {
-      cachedData = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
-    }
-
-    if (cachedData && cachedData[replacedApiUrl]) {
-      // If cached data is found, send it as response
-      console.log("Data found in cache.");
-      res.send(cachedData[replacedApiUrl]);
-    } else {
-      console.log("If no cached data found, fetch from API");
-      // If no cached data found, fetch from API
-      const response = await axios.get(replacedApiUrl);
-      const responseData = response.data;
-
-      // Update or create cache in JSON file
-      let newData;
-      if (cachedData) {
-        newData = { ...cachedData, [replacedApiUrl]: responseData };
-      } else {
-        newData = { [replacedApiUrl]: responseData };
-      }
-      fs.writeFileSync(dataFilePath, JSON.stringify(newData));
-
-      console.log("Data saved to JSON file.");
-
-      // Send response
+module.exports = function (router) {
+  router.get("/company/:stocksymbol/overview", async function (req, res) {
+    try {
+      const stockSymbol = req.params.stocksymbol;
+      const responseData = await companyOverviewService.getCompanyOverview(
+        stockSymbol
+      );
       res.send(responseData);
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send("Internal server error");
     }
-  } catch (error) {
-    // Handle error
-    console.error("Error:", error);
-    res.status(500).send("Internal server error");
-  }
+  });
 };
