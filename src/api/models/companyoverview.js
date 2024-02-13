@@ -1,57 +1,17 @@
 const mongoose = require("mongoose");
 
-const stockSchema = new mongoose.Schema(
-  {
-    Symbol: String,
-    AssetType: String,
-    Name: String,
-    Description: String,
-    CIK: String,
-    Exchange: String,
-    Currency: String,
-    Country: String,
-    Sector: String,
-    Industry: String,
-    Address: String,
-    FiscalYearEnd: String,
-    LatestQuarter: Date,
-    MarketCapitalization: Number,
-    EBITDA: Number,
-    PERatio: Number,
-    PEGRatio: Number,
-    BookValue: Number,
-    DividendPerShare: Number,
-    DividendYield: Number,
-    EPS: Number,
-    RevenuePerShareTTM: Number,
-    ProfitMargin: Number,
-    OperatingMarginTTM: Number,
-    ReturnOnAssetsTTM: Number,
-    ReturnOnEquityTTM: Number,
-    RevenueTTM: Number,
-    GrossProfitTTM: Number,
-    DilutedEPSTTM: Number,
-    QuarterlyEarningsGrowthYOY: Number,
-    QuarterlyRevenueGrowthYOY: Number,
-    AnalystTargetPrice: Number,
-    TrailingPE: Number,
-    ForwardPE: Number,
-    PriceToSalesRatioTTM: Number,
-    PriceToBookRatio: Number,
-    EVToRevenue: Number,
-    EVToEBITDA: Number,
-    Beta: Number,
-    // "52WeekHigh": Number,
-    // "52WeekLow": Number,
-    // "50DayMovingAverage": Number,
-    // "200DayMovingAverage": Number,
-    SharesOutstanding: Number,
-    DividendDate: Date,
-    ExDividendDate: Date,
+const companyOverviewSchema = new mongoose.Schema({
+  symbol: String,
+  data: Object,
+  updatedAt: {
+    type: Date,
+    default: Date.now,
   },
-  { collection: "Stocks" }
+});
+
+const CompanyOverview = mongoose.model(
+  "CompanyOverview",
+  companyOverviewSchema
 );
 
-const Stock = mongoose.model("StockOverview", stockSchema);
-
-module.exports = Stock;
+module.exports = CompanyOverview;

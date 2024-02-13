@@ -1,43 +1,35 @@
 const axios = require("axios");
-const fs = require("fs");
-const path = require("path");
+const config = require("../config/config.json");
+const CompanyOverview = require("../models/companyoverview");
 
-const apiUrl =
-  "https://www.alphavantage.co/query?function=OVERVIEW&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ";
-
-const dataFilePath = path.join(__dirname, "../cache/companyoverview.json");
+const apiUrl = `${config.baseURL}/query?function=OVERVIEW&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ`;
 
 class CompanyOverviewService {
   async getCompanyOverview(stockSymbol) {
     try {
       const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
-      let cachedData;
 
-      // Check if data is cached in the JSON file
-      if (fs.existsSync(dataFilePath)) {
-        cachedData = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
-      }
+      // Check if data exists in MongoDB
+      const cachedData = await CompanyOverview.findOne({ symbol: stockSymbol });
 
-      if (cachedData && cachedData[replacedApiUrl]) {
-        // If cached data is found, return it
-        console.log("Data found in cache.");
-        return cachedData[replacedApiUrl];
+      if (cachedData) {
+        // If cached data is found in MongoDB, return it
+        console.log("Data found in MongoDB cache.");
+        return cachedData.data;
       } else {
         console.log("If no cached data found, fetch from API");
-        // If no cached data found, fetch from API
+        // If no cached data found in MongoDB, fetch from API
         const response = await axios.get(replacedApiUrl);
         const responseData = response.data;
 
-        // Update or create cache in JSON file
-        let newData;
-        if (cachedData) {
-          newData = { ...cachedData, [replacedApiUrl]: responseData };
-        } else {
-          newData = { [replacedApiUrl]: responseData };
-        }
-        fs.writeFileSync(dataFilePath, JSON.stringify(newData));
+        // Save response data to MongoDB
+        await CompanyOverview.findOneAndUpdate(
+          { symbol: stockSymbol },
+          { symbol: stockSymbol, data: responseData },
+          { upsert: true }
+        );
 
-        console.log("Data saved to JSON file.");
+        console.log("Data saved to MongoDB cache.");
 
         // Return response
         return responseData;

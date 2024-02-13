@@ -1,42 +1,33 @@
 const axios = require("axios");
-const fs = require("fs");
-const path = require("path");
+const config = require("../config/config.json");
+const NewsAndSentiments = require("../models/newsandsentiments");
 
-const apiUrl =
-  "https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=F4NKYN0O04SNXFUQ";
-
-const dataFilePath = path.join(__dirname, "../cache/newsandsentiments.json");
+const apiUrl = `${config.baseURL}/query?function=NEWS_SENTIMENT&apikey=F4NKYN0O04SNXFUQ`;
 
 class NewsAndSentimentsService {
   async getNewsAndSentiments() {
     try {
-      let cachedData;
+      // Check if data exists in MongoDB
+      const cachedData = await NewsAndSentiments.findOne({ key: apiUrl });
 
-      // Check if data is cached in the JSON file
-      if (fs.existsSync(dataFilePath)) {
-        cachedData = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
-      }
-
-      if (cachedData && cachedData[apiUrl]) {
-        // If cached data is found, return it
-        console.log("Data found in cache.");
-        return cachedData[apiUrl];
+      if (cachedData) {
+        // If cached data is found in MongoDB, return it
+        console.log("Data found in MongoDB cache.");
+        return cachedData.data;
       } else {
         console.log("If no cached data found, fetch from API");
-        // If no cached data found, fetch from API
+        // If no cached data found in MongoDB, fetch from API
         const response = await axios.get(apiUrl);
         const responseData = response.data;
 
-        // Update or create cache in JSON file
-        let newData;
-        if (cachedData) {
-          newData = { ...cachedData, [apiUrl]: responseData };
-        } else {
-          newData = { [apiUrl]: responseData };
-        }
-        fs.writeFileSync(dataFilePath, JSON.stringify(newData));
+        // Save response data to MongoDB with the API URL as key
+        await NewsAndSentiments.findOneAndUpdate(
+          { key: apiUrl },
+          { key: apiUrl, data: responseData },
+          { upsert: true }
+        );
 
-        console.log("Data saved to JSON file.");
+        console.log("Data saved to MongoDB cache.");
 
         // Return response
         return responseData;
