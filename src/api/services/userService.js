@@ -12,12 +12,15 @@ const signUp = async (req, res) => {
     }
     user = new User(req.body);
     await user.save(user);
-    res.json(user);
+    res.status(201);
+    res.send();
 }
 
 const signIn = async (req, res) => {
     const { email, password } = req.body;
+    
     let user = await User.findOne({ email: { $eq: email } });
+
     if (!user) {
         throw new AuthorizationError('Invalid User or Passoword');
     }
@@ -25,20 +28,20 @@ const signIn = async (req, res) => {
     //Authenticate the User
     if (!user.authenticate(password)) {
         throw new AuthorizationError('Invalid User or Passoword');
-
     }
 
     //Creating token
-    const token = jwt.sign({ _id: user._id }, process.env.SECRET || config.SECRET);
+    const token = jwt.sign({ _id: user._id }, process.env.jwtSecret || config.jwtSecret);
 
     //Pass token into cookie
     res.cookie('token', token, { expire: new Date() + 1 });
 
-    //Send response to Front End
-    const { _id, name } = user
+    // Read name from user object
+    const { name } = user
+
+    //Send response
     return res.json({
         user: {
-            _id,
             name,
             email
         }

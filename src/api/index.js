@@ -1,8 +1,9 @@
 const express = require('express');
 const errorHandler = require('./middleware/errorHandlerMiddleware');
 const appRoutes = require('./router/index');
-const port = 8001;
+const config = require("./config/config.json");
 const app = express();
+const port = process.env.port || config.port;
 
 
 const bodyparse = require("body-parser")
