@@ -10,7 +10,6 @@ const WatchListDetailsPage = () => {
     return (
         <div>
         <h3>Watch list details</h3>
-        <p>{name}</p>
         </div>
     );
 };
