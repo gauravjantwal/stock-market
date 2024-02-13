@@ -29,7 +29,7 @@ const signIn = async (req, res) => {
     }
 
     //Creating token
-    const token = jwt.sign({ _id: user._id }, process.env.SECRET || config.SECRET);
+    const token = jwt.sign({ _id: user._id }, process.env.jwtSecret || config.jwtSecret);
 
     //Pass token into cookie
     res.cookie('token', token, { expire: new Date() + 1 });
