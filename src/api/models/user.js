@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
 userSchema.virtual("password")
     .set(function (password) {
         this._password = password
-        this.salt =  bcrypt.genSaltSync(10);
+        this.salt = bcrypt.genSaltSync(10);
         this.encry_password = this.securePassword(password)
     })
     .get(function () {
@@ -50,6 +50,4 @@ userSchema.methods = {
     }
 }
 
-const User = module.exports = mongoose.model("User", userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

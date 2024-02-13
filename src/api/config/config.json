@@ -1,0 +1,6 @@
+﻿{
+  "port": 8001,
+  "connectionString": "mongodb://127.0.0.1:27017/StockMarket",
+  "baseURL": "https://www.alphavantage.co",
+  "jwtSecret": "ahsgdahsdjweahsdhgvcgd123i24ygasdhlajsdshadjshgf"
+}

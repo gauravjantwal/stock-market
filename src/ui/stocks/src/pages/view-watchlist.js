@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const WatchListDetails = ({ rowData }) => {
+const ViewWatchList = ({ rowData }) => {
     const [buttonText, setButtonText] = useState('Buy');
 
   const handleClick = (text) => {
@@ -45,4 +44,4 @@ const WatchListDetails = ({ rowData }) => {
   };
   
 
-export default WatchListDetails;
+export default ViewWatchList;
