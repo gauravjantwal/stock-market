@@ -12,7 +12,7 @@
 	```
 	{
 		"name": "Gaurav J",
-		"email": "gauravj@emids.com",
+		"email": "gauravj@domain.com",
 		"password": "123456773"
 	}
 	```
@@ -27,7 +27,7 @@
 * Payload:
 	```
 	{
-		"email": "gauravj@emids.com",
+		"email": "gauravj@domain.com",
 		"password": "123456773"
 	}
 	```
@@ -37,7 +37,7 @@
   		{
 			"user": {
 				"name": "Gaurav J",
-				"email": "gauravj@emids.com"
+				"email": "gauravj@domain.com"
 			}
 		}
    		```
