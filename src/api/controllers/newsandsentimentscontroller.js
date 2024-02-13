@@ -3,37 +3,35 @@ const fs = require("fs");
 const path = require("path");
 
 const apiUrl =
-  "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ";
+  "https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=F4NKYN0O04SNXFUQ";
 
-const dataFilePath = path.join(__dirname, "../cache/timeseriesdaily.json");
+const dataFilePath = path.join(__dirname, "../cache/newsandsentiments.json");
 
 // Make a GET request to the API
-exports.gettimeseriesdaily = async function (req, res) {
+exports.getnewsandsentiments = async function (req, res) {
   try {
-    let stockSymbol = req.params.stocksymbol;
-    const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
     // Check if data is cached in the JSON file
     let cachedData;
     if (fs.existsSync(dataFilePath)) {
       cachedData = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
     }
 
-    if (cachedData && cachedData[stockSymbol]) {
+    if (cachedData && cachedData[apiUrl]) {
       // If cached data is found, send it as response
       console.log("Data found in cache.");
-      res.send(cachedData[stockSymbol]);
+      res.send(cachedData[apiUrl]);
     } else {
       console.log("If no cached data found, fetch from API");
       // If no cached data found, fetch from API
-      const response = await axios.get(replacedApiUrl);
+      const response = await axios.get(apiUrl);
       const responseData = response.data;
 
       // Update or create cache in JSON file
       let newData;
       if (cachedData) {
-        newData = { ...cachedData, [stockSymbol]: responseData };
+        newData = { ...cachedData, [apiUrl]: responseData };
       } else {
-        newData = { [stockSymbol]: responseData };
+        newData = { [apiUrl]: responseData };
       }
       fs.writeFileSync(dataFilePath, JSON.stringify(newData));
 

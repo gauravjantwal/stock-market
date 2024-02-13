@@ -3,12 +3,12 @@ const fs = require("fs");
 const path = require("path");
 
 const apiUrl =
-  "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ";
+  "https://www.alphavantage.co/query?function=OVERVIEW&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ";
 
-const dataFilePath = path.join(__dirname, "../cache/timeseriesdaily.json");
+const dataFilePath = path.join(__dirname, "../cache/companyoverview.json");
 
 // Make a GET request to the API
-exports.gettimeseriesdaily = async function (req, res) {
+exports.getcompanyoverview = async function (req, res) {
   try {
     let stockSymbol = req.params.stocksymbol;
     const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
@@ -18,10 +18,10 @@ exports.gettimeseriesdaily = async function (req, res) {
       cachedData = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
     }
 
-    if (cachedData && cachedData[stockSymbol]) {
+    if (cachedData && cachedData[replacedApiUrl]) {
       // If cached data is found, send it as response
       console.log("Data found in cache.");
-      res.send(cachedData[stockSymbol]);
+      res.send(cachedData[replacedApiUrl]);
     } else {
       console.log("If no cached data found, fetch from API");
       // If no cached data found, fetch from API
@@ -31,9 +31,9 @@ exports.gettimeseriesdaily = async function (req, res) {
       // Update or create cache in JSON file
       let newData;
       if (cachedData) {
-        newData = { ...cachedData, [stockSymbol]: responseData };
+        newData = { ...cachedData, [replacedApiUrl]: responseData };
       } else {
-        newData = { [stockSymbol]: responseData };
+        newData = { [replacedApiUrl]: responseData };
       }
       fs.writeFileSync(dataFilePath, JSON.stringify(newData));
 
