@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const TickerSearchSchema = new mongoose.Schema({
-  _id: {String, Boolean},
-    StockSymbol: {String, Boolean},
-    StockName: String,
-    SymbolWithName: String,
-    exchange: String,
-    assetType: String,
-    ipoDate: String,
+  _id: String,
+  assetType: String,
+  exchange: String,
+  ipoDate: String,
+  StockName: String,
+  StockSymbol: String,
+  SymbolWithName: String,
   });
 
-  const TickerSearch = mongoose.model('StockSymbolAlphavantage', TickerSearchSchema);
+  const TickerSearch = mongoose.model('stockssymbol', TickerSearchSchema);
   module.exports = TickerSearch;
