@@ -24,8 +24,7 @@
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.1",
-    "npm": "^10.4.0",
-    "sqlstring": "^2.3.3"
+    "npm": "^10.4.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"

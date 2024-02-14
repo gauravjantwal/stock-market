@@ -1,5 +1,5 @@
 const dashboardcontroller = require("../controllers/dashboardcontroller");
-const timeseriescontroller = require("../controllers/timeseriesdailycontroller");
+const timeseriesdailycontroller = require("../controllers/timeseriesdailycontroller");
 const usercontroller = require("../controllers/usercontroller");
 const newsandsentimentscontroller = require("../controllers/newsandsentimentscontroller");
 const companyoverviewcontroller = require("../controllers/companyoverviewcontroller");
@@ -17,4 +17,8 @@ module.exports = function (router) {
   usercontroller(router);
   tickersearchcontroller(router);
   topgainerandloosercontroller(router);
+  newsandsentimentscontroller(router);
+  companyoverviewcontroller(router);
+  usercontroller(router);
+  timeseriesdailycontroller(router);
 };
