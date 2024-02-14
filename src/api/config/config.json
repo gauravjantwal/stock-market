@@ -1,4 +1,5 @@
 ﻿{
   "connectionString": "mongodb://127.0.0.1:27017/StockMarket",
-  "baseURL": "https://www.alphavantage.co"
+  "baseURL": "https://www.alphavantage.co",
+  "cloudConnectionString":"mongodb+srv://admin:admin@cluster0.n0lbewp.mongodb.net/Stocks"
 }

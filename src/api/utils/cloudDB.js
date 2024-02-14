@@ -1,9 +1,7 @@
 const { MongoClient } = require('mongodb');
+const config = require('../config/config.json');
 
-// Connection URI. Replace <username>, <password>, and <your-cluster-url> with your MongoDB Atlas credentials.
-const uri = "mongodb+srv://admin:admin@cluster0.n0lbewp.mongodb.net/?retryWrites=true&w=majority";
-
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(config.cloudConnectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function connectToDatabase() {
     try {
