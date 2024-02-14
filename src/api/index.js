@@ -5,7 +5,6 @@ const config = require("./config/config.json");
 const app = express();
 const port = process.env.port || config.port;
 
-
 const bodyparse = require("body-parser")
 const cookieparser = require("cookie-parser")
 const cors = require("cors")
@@ -24,3 +23,5 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', router);
 app.use(errorHandler); // global error handler
 app.listen(port, () => console.log("Listening " + port));
+
+

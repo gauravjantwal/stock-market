@@ -19,5 +19,6 @@ module.exports = {
   User: require("../models/user"),
   CompanyOverview: require("../models/companyoverview"),
   NewsAndSentiments: require("../models/newsandsentiments"),
-  TimeSeriesDaily: require("../models/timeseriesdaily")
+  TimeSeriesDaily: require("../models/timeseriesdaily"),
+  BalanceSheet: require("../models/balancesheet")
 };

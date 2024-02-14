@@ -5,6 +5,8 @@ const newsandsentimentscontroller = require("../controllers/newsandsentimentscon
 const companyoverviewcontroller = require("../controllers/companyoverviewcontroller");
 const topgainerandloosercontroller = require("../controllers/topgainerandloosercontroller");
 const stocksearchcontroller = require("../controllers/stocksearchcontroller");
+const balancesheetcontroller = require("../controllers/balancesheetcontroller");
+
 
 module.exports = function (router) {
   router.get("/dashboard", dashboardcontroller.getdashboard);
@@ -18,4 +20,6 @@ module.exports = function (router) {
   companyoverviewcontroller(router);
   usercontroller(router);
   timeseriesdailycontroller(router);
+  balancesheetcontroller(router);
 };
+
