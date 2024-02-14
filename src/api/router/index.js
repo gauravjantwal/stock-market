@@ -1,5 +1,5 @@
 const dashboardcontroller = require("../controllers/dashboardcontroller");
-const timeseriescontroller = require("../controllers/timeseriesdailycontroller");
+const timeseriesdailycontroller = require("../controllers/timeseriesdailycontroller");
 const usercontroller = require("../controllers/usercontroller");
 const newsandsentimentscontroller = require("../controllers/newsandsentimentscontroller");
 const companyoverviewcontroller = require("../controllers/companyoverviewcontroller");
@@ -9,10 +9,6 @@ const stocksearchcontroller = require("../controllers/stocksearchcontroller");
 module.exports = function (router) {
   router.get("/dashboard", dashboardcontroller.getdashboard);
   router.get(
-    "/timeseriesdaily/:stocksymbol",
-    timeseriescontroller.gettimeseriesdaily
-  );
-  router.get(
     "/topgainerandlooser",
     topgainerandloosercontroller.gettopgainerandlooser
   );
@@ -21,4 +17,5 @@ module.exports = function (router) {
   newsandsentimentscontroller(router);
   companyoverviewcontroller(router);
   usercontroller(router);
+  timeseriesdailycontroller(router);
 };
