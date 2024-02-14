@@ -1,6 +1,8 @@
 const axios = require("axios");
 const config = require("../config/config.json");
 const NewsAndSentiments = require("../models/newsandsentiments");
+const { BadRequestError } = require("../models/errors");
+const errorHandler = require("../middleware/errorHandlerMiddleware");
 
 const apiUrl = `${config.baseURL}/query?function=NEWS_SENTIMENT&apikey=F4NKYN0O04SNXFUQ`;
 
@@ -20,6 +22,10 @@ class NewsAndSentimentsService {
         const response = await axios.get(apiUrl);
         const responseData = response.data;
 
+        if (!responseData) {
+          throw new BadRequestError("Data not found");
+        }
+
         // Save response data to MongoDB with the API URL as key
         await NewsAndSentiments.findOneAndUpdate(
           { key: apiUrl },
@@ -33,9 +39,8 @@ class NewsAndSentimentsService {
         return responseData;
       }
     } catch (error) {
-      // Handle error
-      console.error("Error:", error);
-      throw new Error("Internal server error");
+      // Pass error to error handler middleware
+      errorHandler(error);
     }
   }
 }
