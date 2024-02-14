@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const connectionOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose
   .connect(
-    process.env.MONGODB_URI || config.connectionString,
+    process.env.MONGODB_URI || config.cloudConnectionString,
     connectionOptions
   )
   .then(() => {
@@ -19,5 +19,6 @@ module.exports = {
   User: require("../models/user"),
   CompanyOverview: require("../models/companyoverview"),
   NewsAndSentiments: require("../models/newsandsentiments"),
+  TickerSearch: require("../models/tickerseach"),
   TimeSeriesDaily: require("../models/timeseriesdaily")
 };
