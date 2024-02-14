@@ -1,18 +1,16 @@
 const axios = require("axios");
 const config = require("../config/config.json");
-const CompanyOverview = require("../models/companyoverview");
+const MarketStatus = require("../models/globalmarketstatus");
 const { BadRequestError } = require("../models/errors");
 const errorHandler = require("../middleware/errorHandlerMiddleware");
 
-const apiUrl = `${config.baseURL}/query?function=OVERVIEW&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ`;
+const apiUrl = `${config.baseURL}/query?function=MARKET_STATUS&apikey=demo`;
 
-class CompanyOverviewService {
-  async getCompanyOverview(stockSymbol) {
+class MarketStatusService {
+  async getMarketStatus() {
     try {
-      const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
-
       // Check if data exists in MongoDB
-      const cachedData = await CompanyOverview.findOne({ symbol: stockSymbol });
+      const cachedData = await MarketStatus.findOne({ key: apiUrl });
 
       if (cachedData) {
         // If cached data is found in MongoDB, return it
@@ -21,7 +19,7 @@ class CompanyOverviewService {
       } else {
         console.log("If no cached data found, fetch from API");
         // If no cached data found in MongoDB, fetch from API
-        const response = await axios.get(replacedApiUrl);
+        const response = await axios.get(apiUrl);
         const responseData = response.data;
 
         if (!responseData) {
@@ -29,9 +27,9 @@ class CompanyOverviewService {
         }
 
         // Save response data to MongoDB
-        await CompanyOverview.findOneAndUpdate(
-          { symbol: stockSymbol },
-          { symbol: stockSymbol, data: responseData },
+        await MarketStatus.findOneAndUpdate(
+          { key: apiUrl },
+          { key: apiUrl, data: responseData },
           { upsert: true }
         );
 
@@ -47,4 +45,4 @@ class CompanyOverviewService {
   }
 }
 
-module.exports = new CompanyOverviewService();
+module.exports = new MarketStatusService();

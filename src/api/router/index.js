@@ -5,6 +5,7 @@ const newsandsentimentscontroller = require("../controllers/newsandsentimentscon
 const companyoverviewcontroller = require("../controllers/companyoverviewcontroller");
 const topgainerandloosercontroller = require("../controllers/topgainerandloosercontroller");
 const tickersearchcontroller = require("../controllers/tickersearchcontroller");
+const globalmarketstatuscontroller = require("../controllers/globalmarketstatuscontroller"); // Import the market status controller
 
 module.exports = function (router) {
   router.get("/dashboard", dashboardcontroller.getdashboard);
@@ -17,4 +18,5 @@ module.exports = function (router) {
   companyoverviewcontroller(router);
   usercontroller(router);
   timeseriesdailycontroller(router);
+  globalmarketstatuscontroller(router); // Add the route for market status
 };
