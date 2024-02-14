@@ -8,10 +8,6 @@ const tickersearchcontroller = require("../controllers/tickersearchcontroller");
 
 module.exports = function (router) {
   router.get("/dashboard", dashboardcontroller.getdashboard);
-  router.get(
-    "/timeseriesdaily/:stocksymbol",
-    timeseriescontroller.gettimeseriesdaily
-  );
   newsandsentimentscontroller(router);
   companyoverviewcontroller(router);
   usercontroller(router);
