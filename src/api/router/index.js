@@ -32,5 +32,6 @@ module.exports = (router) => {
   router.get("/top/gainers/loosers/traded", topGainerAndLooserController.getTopGainerLooserAndTraded);
   router.post("/user/signup", limitApiRate(5, 15), userController.postUserSignUp);
   router.post("/user/signin", limitApiRate(5, 15), userController.postUserSignIn);
+  router.get("/user/signout", userController.getUserSignOut);
   incomestatementcontroller(router);
 };
