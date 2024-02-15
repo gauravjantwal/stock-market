@@ -63,4 +63,6 @@ module.exports = (router) => {
     limitApiRate(5, 15),
     userController.postUserSignIn
   );
+  router.get("/user/signout", userController.getUserSignOut);
+  incomestatementcontroller(router);
 };
