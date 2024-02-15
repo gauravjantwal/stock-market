@@ -27,7 +27,7 @@ const store = new monogoDBSession({
 
 //store session in database
 app.use(session({
-    secret: 'botnyuserdetails',
+    secret: process.env.jwtSecret || config.jwtSecret,
     resave: true,
     saveUninitialized: true,
     cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 },
