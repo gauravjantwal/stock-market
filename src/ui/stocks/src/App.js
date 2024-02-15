@@ -2,9 +2,9 @@ import "./App.css";
 import React, { useEffect } from "react";
 import { Provider } from 'react-redux';
 import store from './store/store';
-import {  Routes, Route, Link } from "react-router-dom";
 import ProtectedRoute from './utility/protectedRoute';
 import { loadUserFromStorage } from './services/userService';
+import {Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import About from "./pages/about";
 import watchList from "./pages/watchList";
@@ -12,6 +12,7 @@ import Menu from "./layout/menu";
 import logo from './logo.webp';
 import Login from "./pages/login";
 import AuthProvider from "./utility/authProvider";
+import WatchListDetailsPage from "./pages/watchlist-details-page";
 
 function App() {
 
@@ -51,6 +52,10 @@ function App() {
             <Route path="/" Component={Dashboard} />
             <Route path="/watchlist" element={<ProtectedRoute element={watchList} />} />
             <Route path="/about" Component={About} />
+            <Route path="/details">
+              <Route path=":id" Component={WatchListDetailsPage}></Route>
+              <Route path=":name" Component={WatchListDetailsPage}></Route>
+            </Route> 
           </Routes>
         </div>
       </div>
