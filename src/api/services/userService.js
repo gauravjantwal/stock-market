@@ -1,61 +1,47 @@
-const { BadRequestError, AuthorizationError } = require('../models/errors');
-const db = require('../utils/db');
-const User = db.User;
+const jwt = require("jsonwebtoken");
+const { BadRequestError, AuthorizationError } = require("../models/errors");
 const config = require("../config/config.json");
-const jwt = require('jsonwebtoken');
+const db = require("../utils/db");
+const User = db.User;
 
-const signUp = async (req, res) => {
-    const userEmail = req.body.email;
-    let user = await User.findOne({ email: { $eq: userEmail } });
-    if (user) {
-        throw new BadRequestError('User already registered with email "' + userEmail + '".', 409);
-    }
-    user = new User(req.body);
-    await user.save(user);
-    res.status(201);
-    res.send();
-}
+exports.userSignUp = async (name, email, password) => {
+  let user = await User.findOne({ email: { $eq: email } });
 
-const signIn = async (req, res) => {
-    const { email, password } = req.body;
+  if (user) {
+    throw new BadRequestError(
+      "User already registered with email [" + email + "].",
+      409
+    );
+  }
 
-    let user = await User.findOne({ email: { $eq: email } });
-
-    if (!user) {
-        throw new AuthorizationError('Invalid User or Passoword');
-    }
-
-    //Authenticate the User
-    if (!user.authenticate(password)) {
-        throw new AuthorizationError('Invalid User or Passoword');
-    }
-
-    //Creating token
-    const token = jwt.sign({ _id: user._id }, process.env.jwtSecret || config.jwtSecret);
-
-    //Pass token into cookie
-    res.cookie('token', token, { expire: new Date() + 1 });
-
-    // Read name from user object
-    const { name } = user
-
-    //Send response
-    return res.json({
-        user: {
-            name,
-            email
-        }
-    });
-
+  user = new User({ name, email, password });
+  await user.save(user);
 };
 
-const signOut = (req, res) => {
-    res.clearCookie("token")
-    return res.json({
-        message: "User signed out successfully"
-    })
-}
+exports.userSignIn = async (email, password) => {
+  let user = await User.findOne({ email: { $eq: email } });
 
-exports.userSignUp = signUp;
-exports.userSignIn = signIn;
-exports.userSignOut = signOut;
+  if (!user) {
+    throw new AuthorizationError("Invalid username or password.");
+  }
+
+  //Authenticate the User
+  if (!user.authenticate(password)) {
+    throw new AuthorizationError("Invalid username or password.");
+  }
+
+  //Creating token
+  const token = jwt.sign(
+    { _id: user._id, email },
+    process.env.jwtSecret || config.jwtSecret
+  );
+
+  // Read name from user object
+  const { name } = user;
+
+  //Send response
+  return {
+    name,
+    token,
+  };
+};
