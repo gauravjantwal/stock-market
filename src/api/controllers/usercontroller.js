@@ -29,3 +29,11 @@ exports.postUserSignIn = async (req, res) => {
         user: { name, email }
     });
 };
+
+
+exports.getUserSignOut = async (req, res) => {
+    res.clearCookie("token");
+    
+    res.status(204);
+    res.send();
+};

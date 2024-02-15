@@ -5,12 +5,13 @@ const dashboardcontroller = require("../controllers/dashboardcontroller");
 const companyBalancesheetController = require("../controllers/balancesheetcontroller");
 const companyOverviewController = require("../controllers/companyoverviewcontroller");
 const globalMarketStatusController = require("../controllers/globalmarketstatuscontroller");
+const incomeStatementController = require("../controllers/incomestatementcontroller");
 const newsAndSentimentsController = require("../controllers/newsandsentimentscontroller");
 const tickerSearchController = require("../controllers/tickersearchcontroller");
 const timeSeriesController = require("../controllers/timeseriescontroller");
 const topGainerAndLooserController = require("../controllers/topgainerandloosercontroller");
 const userController = require("../controllers/usercontroller");
-const incomestatementcontroller = require("../controllers/incomestatementcontroller");
+const watchlistController = require("../controllers/watchlistcontroller");
 
 module.exports = (router) => {
 
@@ -24,6 +25,7 @@ module.exports = (router) => {
   router.get("/dashboard", dashboardcontroller.getdashboard);
   router.get("/company/:stocksymbol/balancesheet", companyBalancesheetController.getCompanyBalancesheet);
   router.get("/company/:stocksymbol/overview", companyOverviewController.getCompanyOverview);
+  router.get("/company/:stocksymbol/incomestatement", incomeStatementController.getCompanyIncomeStatement);
   router.get("/globalmarket/status", globalMarketStatusController.getGlobalMarketStatus);
   router.get("/news/sentiments", newsAndSentimentsController.getNewsAndSentiments);
   router.get("/ticker/:stocksymbol/search", tickerSearchController.getTickerSearch);
@@ -32,5 +34,11 @@ module.exports = (router) => {
   router.get("/top/gainers/loosers/traded", topGainerAndLooserController.getTopGainerLooserAndTraded);
   router.post("/user/signup", limitApiRate(5, 15), userController.postUserSignUp);
   router.post("/user/signin", limitApiRate(5, 15), userController.postUserSignIn);
-  incomestatementcontroller(router);
+  router.get("/user/signout", userController.getUserSignOut);
+
+  router.get("/watchlist", authorize, watchlistController.getWatchlists);
+  router.get("/watchlist/:id", authorize, watchlistController.getWatchlist);
+  router.post("/watchlist", authorize, watchlistController.postWatchlist);
+  router.put("/watchlist/:id", authorize, watchlistController.putWatchlist);
+  router.delete("/watchlist/:id", authorize, watchlistController.deleteWatchlist);
 };
