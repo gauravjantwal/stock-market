@@ -28,7 +28,7 @@ exports.userSignIn = async (email, password) => {
     }
 
     //Creating token
-    const token = jwt.sign({ _id: user._id, email }, process.env.jwtSecret || config.jwtSecret);
+    const token = jwt.sign({ id: user._id, email }, process.env.jwtSecret || config.jwtSecret);
 
     // Read name from user object
     const { name } = user
