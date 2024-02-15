@@ -5,12 +5,12 @@ const dashboardcontroller = require("../controllers/dashboardcontroller");
 const companyBalancesheetController = require("../controllers/balancesheetcontroller");
 const companyOverviewController = require("../controllers/companyoverviewcontroller");
 const globalMarketStatusController = require("../controllers/globalmarketstatuscontroller");
+const incomeStatementController = require("../controllers/incomestatementcontroller");
 const newsAndSentimentsController = require("../controllers/newsandsentimentscontroller");
 const tickerSearchController = require("../controllers/tickersearchcontroller");
 const timeSeriesController = require("../controllers/timeseriescontroller");
 const topGainerAndLooserController = require("../controllers/topgainerandloosercontroller");
 const userController = require("../controllers/usercontroller");
-const incomestatementcontroller = require("../controllers/incomestatementcontroller");
 
 module.exports = (router) => {
 
@@ -24,6 +24,7 @@ module.exports = (router) => {
   router.get("/dashboard", dashboardcontroller.getdashboard);
   router.get("/company/:stocksymbol/balancesheet", companyBalancesheetController.getCompanyBalancesheet);
   router.get("/company/:stocksymbol/overview", companyOverviewController.getCompanyOverview);
+  router.get("/company/:stocksymbol/incomestatement", incomeStatementController.getCompanyIncomeStatement);
   router.get("/globalmarket/status", globalMarketStatusController.getGlobalMarketStatus);
   router.get("/news/sentiments", newsAndSentimentsController.getNewsAndSentiments);
   router.get("/ticker/:stocksymbol/search", tickerSearchController.getTickerSearch);
@@ -33,5 +34,4 @@ module.exports = (router) => {
   router.post("/user/signup", limitApiRate(5, 15), userController.postUserSignUp);
   router.post("/user/signin", limitApiRate(5, 15), userController.postUserSignIn);
   router.get("/user/signout", userController.getUserSignOut);
-  incomestatementcontroller(router);
 };
