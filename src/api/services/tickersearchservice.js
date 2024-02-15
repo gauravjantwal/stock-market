@@ -4,11 +4,11 @@ const TickerSearch = require("../models/tickerseach");
 
 const searchByStockName = async (req, res) => {
   
-    const query = { "SymbolWithName": { $regex: req.query.StockName, $options: 'i' } };
+    const query = { "SymbolWithName": { $regex: req.params.symbolOrName, $options: 'i' } };
 
     const result = await TickerSearch.find(query);
     if (result.length == 0) {
-        throw new BadRequestError('Data Not found.', 404);
+        throw new BadRequestError('Requested data Not found.', 404);
     }
     res.send(result);
 }

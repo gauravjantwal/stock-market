@@ -21,5 +21,6 @@ module.exports = {
   NewsAndSentiments: require("../models/newsandsentiments"),
   TickerSearch: require("../models/tickerseach"),
   TimeSeriesDaily: require("../models/timeseriesdaily"),
-  BalanceSheet: require("../models/balancesheet")
+  BalanceSheet: require("../models/balancesheet"),
+  CompanyIncomeStatement: require("../models/incomestatement"),
 };
