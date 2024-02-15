@@ -19,6 +19,7 @@ module.exports = {
   User: require("../models/user"),
   CompanyOverview: require("../models/companyoverview"),
   NewsAndSentiments: require("../models/newsandsentiments"),
+  CompanyIncomeStatement: require("../models/incomestatement"),
   Ticker: require("../models/ticker"),
   TimeSeriesDaily: require("../models/timeseriesdaily"),
   BalanceSheet: require("../models/balancesheet"),
