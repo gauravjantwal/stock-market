@@ -1,10 +1,9 @@
-const axios = require("axios");
-const config = require("../config/config.json");
-const { BadRequestError } = require("../models/errors");
+const aAService = require("./alphaAdvantageService");
+const { NotFoundError } = require("../models/errors");
 const db = require("../utils/db");
 const CompanyOverview = db.CompanyOverview;
 
-const apiUrl = `${config.baseURL}/query?function=OVERVIEW&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ`;
+const apiUrl = '/query?function=OVERVIEW&symbol=[symbol]';
 
 exports.getCompanyOverview = async (stockSymbol) => {
 
@@ -20,11 +19,11 @@ exports.getCompanyOverview = async (stockSymbol) => {
   } else {
     console.log("If no cached data found, fetch from API");
     // If no cached data found in MongoDB, fetch from API
-    const response = await axios.get(replacedApiUrl);
+    const response = await aAService.get(replacedApiUrl);
     const responseData = response.data;
 
     if (!responseData) {
-      throw new BadRequestError("Data not found");
+      throw new NotFoundError(`Symbol [${stockSymbol}] not found.`);
     }
 
     // Save response data to MongoDB

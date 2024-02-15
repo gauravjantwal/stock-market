@@ -1,4 +1,4 @@
-const { BadRequestError } = require("../models/errors");
+const { NotFoundError } = require("../models/errors");
 const db = require("../utils/db");
 const Ticker = db.Ticker;
 
@@ -9,6 +9,10 @@ exports.searchTicker = async (stockSymbol) => {
 
   if (result.length == 0) {
     throw new BadRequestError("Symbol '" + stockSymbol + "' not found.", 404);
+  }
+
+  if (result.length == 0) {
+    throw new NotFoundError("Symbol '" + stockSymbol + "' not found.", 404);
   }
 
   return result;
