@@ -18,7 +18,7 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res) => {
     const { email, password } = req.body;
-    
+
     let user = await User.findOne({ email: { $eq: email } });
 
     if (!user) {
@@ -49,5 +49,13 @@ const signIn = async (req, res) => {
 
 };
 
+const signOut = (req, res) => {
+    res.clearCookie("token")
+    return res.json({
+        message: "User signed out successfully"
+    })
+}
+
 exports.userSignUp = signUp;
 exports.userSignIn = signIn;
+exports.userSignOut = signOut;

@@ -20,5 +20,6 @@ module.exports = function (router) {
         userService.userSignUp);
 
     router.post('/user/signin', rateLimiter, userService.userSignIn)
+    router.get('/user/signout',userService.userSignOut);
 };
 
