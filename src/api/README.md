@@ -57,3 +57,14 @@ Use following commands to setup nodejs project:
    	* CODE: 401 - Authorization Error (with message)
 	* CODE: 429 - Too Many Requests
     * CODE: 500 - Some unexpected error
+
+
+### 3. Time Series Daily
+* Path: `/timeseriesdaily/IBM`
+* Format: JSON
+* Response : Get All Daily Prices (open, high, low, close) and Volumes
+
+### 4. Balance Sheet
+* Path: `/balancesheet/IBM`
+* Format: JSON
+* Response : Get AnnualReports

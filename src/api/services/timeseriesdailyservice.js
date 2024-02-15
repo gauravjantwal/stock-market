@@ -1,18 +1,16 @@
 const axios = require("axios");
 const config = require("../config/config.json");
-const CompanyOverview = require("../models/companyoverview");
-const { BadRequestError } = require("../models/errors");
-const errorHandler = require("../middleware/errorHandlerMiddleware");
+const TimeSeriesDaily = require("../models/timeseriesdaily");
 
-const apiUrl = `${config.baseURL}/query?function=OVERVIEW&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ`;
+const apiUrl = `${config.baseURL}/query?function=TIME_SERIES_DAILY&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ`;
 
-class CompanyOverviewService {
-  async getCompanyOverview(stockSymbol) {
+class TimeSeriesDailyService {
+  async getTimeSeriesDaily(stockSymbol) {
     try {
       const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
 
       // Check if data exists in MongoDB
-      const cachedData = await CompanyOverview.findOne({ symbol: stockSymbol });
+      const cachedData = await TimeSeriesDaily.findOne({ symbol: stockSymbol });
 
       if (cachedData) {
         // If cached data is found in MongoDB, return it
@@ -24,12 +22,8 @@ class CompanyOverviewService {
         const response = await axios.get(replacedApiUrl);
         const responseData = response.data;
 
-        if (!responseData) {
-          throw new BadRequestError("Data not found");
-        }
-
         // Save response data to MongoDB
-        await CompanyOverview.findOneAndUpdate(
+        await TimeSeriesDaily.findOneAndUpdate(
           { symbol: stockSymbol },
           { symbol: stockSymbol, data: responseData },
           { upsert: true }
@@ -41,10 +35,11 @@ class CompanyOverviewService {
         return responseData;
       }
     } catch (error) {
-      // Pass error to error handler middleware
-      errorHandler(error);
+      // Handle error
+      console.error("Error:", error);
+      throw new Error("Internal server error");
     }
   }
 }
 
-module.exports = new CompanyOverviewService();
+module.exports = new TimeSeriesDailyService();
