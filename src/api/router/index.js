@@ -1,4 +1,5 @@
 const rateLimit = require('express-rate-limit');
+const authorize = require('../middleware/authorizeHandlerMiddleware');
 
 const dashboardcontroller = require("../controllers/dashboardcontroller");
 const companyBalancesheetController = require("../controllers/balancesheetcontroller");
