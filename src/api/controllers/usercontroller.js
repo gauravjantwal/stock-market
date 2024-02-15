@@ -1,24 +1,31 @@
-const rateLimit = require('express-rate-limit');
 const userService = require('../services/userService');
 const { check } = require('express-validator');
 
 
-module.exports = function (router) {
+// check("name", "Name should be atleast 3 characters").isLength({ min: 3 }),
+// check("email", "Email should be valid").isEmail(),
+// check("password", "password should be atleast 6 characters").isLength({ min: 6 })
+exports.postUserSignUp = async (req, res) => {
+    const { name, email, password } = req.body;
 
-    const rateLimiter = rateLimit({
-        windowMs: 15 * 60 * 1000, // 15 minutes
-        max: 5, // max 5 requests per windowMs
-        headers: true,
-        message: 'You have exceeded your 3 requests per 15 minute limit.'
-    });
+    await userService.userSignUp(name, email, password);
 
-    router.post('/user/signup', rateLimiter, [
-        check("name", "Name should be atleast 3 characters").isLength({ min: 3 }),
-        check("email", "Email should be valid").isEmail(),
-        check("password", "password should be atleast 6 characters").isLength({ min: 6 })
-    ],
-        userService.userSignUp);
-
-    router.post('/user/signin', rateLimiter, userService.userSignIn)
+    res.status(201);
+    res.send();
 };
 
+exports.postUserSignIn = async (req, res) => {
+    const { email, password } = req.body;
+
+    var response = await userService.userSignIn(email, password);
+
+    const { name, token } = response;
+
+    //Pass token into cookie
+    res.cookie('token', token, { expire: new Date() + 1 });
+
+
+    return res.json({
+        user: { name, email }
+    });
+};
