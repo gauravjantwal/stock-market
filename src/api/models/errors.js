@@ -20,7 +20,7 @@ class AuthorizationError extends Error {
     }
 }
 
-class NotFoundException extends Error {
+class NotFoundError extends Error {
     constructor(message, statusCode = 404) {
         super(message, statusCode);
     }
@@ -29,5 +29,5 @@ class NotFoundException extends Error {
 module.exports = {
     AuthorizationError,
     BadRequestError,
-    NotFoundException
+    NotFoundError
 };

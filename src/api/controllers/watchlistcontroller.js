@@ -1,4 +1,4 @@
-const { NotFoundException } = require('../models/errors');
+const { NotFoundError } = require('../models/errors');
 const watchlistService = require('../services/watchlistService');
 
 exports.postWatchlist = async (req, res) => {
@@ -26,7 +26,7 @@ exports.getWatchlist = async (req, res) => {
 
     // Check if a watchlist was found
     if (!watchlist) {
-        throw new NotFoundException('Watchlist not found');
+        throw new NotFoundError('Watchlist not found');
     }
 
     // Send the retrieved watchlist in the response
@@ -39,7 +39,7 @@ exports.putWatchlist = async (req, res) => {
     const updatedWatchlist = await watchlistService.updateWatchlistById(watchlistId, req.body);
 
     if (!updatedWatchlist) {
-        throw new NotFoundException('Watchlist not found');
+        throw new NotFoundError('Watchlist not found');
     }
 
     res.status(202); // Accepted
@@ -56,7 +56,7 @@ exports.deleteWatchlist = async (req, res) => {
     const deletedWatchlist = await watchlistService.deleteWatchlistById(watchlistId);
 
     if (!deletedWatchlist) {
-        throw new NotFoundException('Watchlist not found');
+        throw new NotFoundError('Watchlist not found');
     }
 
     res.status(202); // Accepted

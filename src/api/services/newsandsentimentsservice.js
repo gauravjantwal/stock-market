@@ -1,13 +1,12 @@
-const axios = require("axios");
-const config = require("../config/config.json");
+const aAService = require("./alphaAdvantageService");
 const { BadRequestError } = require("../models/errors");
 const db = require("../utils/db");
 const NewsAndSentiments = db.NewsAndSentiments;
 
-const apiUrl = `${config.baseURL}/query?function=NEWS_SENTIMENT&apikey=F4NKYN0O04SNXFUQ`;
+const apiUrl = 'query?function=NEWS_SENTIMENT';
 
 exports.getNewsAndSentiments = async () => {
-  
+
   // Check if data exists in MongoDB
   const cachedData = await NewsAndSentiments.findOne({ key: apiUrl });
 
@@ -18,7 +17,7 @@ exports.getNewsAndSentiments = async () => {
   } else {
     console.log("If no cached data found, fetch from API");
     // If no cached data found in MongoDB, fetch from API
-    const response = await axios.get(apiUrl);
+    const response = await aAService.get(apiUrl);
     const responseData = response.data;
 
     if (!responseData) {

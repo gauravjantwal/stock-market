@@ -1,13 +1,13 @@
 require('express-async-errors');
 
-const { AuthorizationError, BadRequestError, NotFoundException } = require('../models/errors');
+const { AuthorizationError, BadRequestError, NotFoundError } = require('../models/errors');
 
 const getStatusCodeByError = (error) => {
     if (error instanceof AuthorizationError) {
         return error.statusCode ?? 401;
     } else if (error instanceof BadRequestError) {
         return error.statusCode ?? 400;
-    } else if (error instanceof NotFoundException) {
+    } else if (error instanceof NotFoundError) {
         return error.statusCode ?? 404;
     }
     return 500;
