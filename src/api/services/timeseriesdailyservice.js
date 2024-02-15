@@ -1,9 +1,8 @@
-const axios = require("axios");
-const config = require("../config/config.json");
+const aAService = require("./alphaAdvantageService");
 const db = require('../utils/db');
 const TimeSeriesDaily = db.TimeSeriesDaily;
 
-const apiUrl = `${config.baseURL}/query?function=TIME_SERIES_DAILY&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ`;
+const apiUrl = '/query?function=TIME_SERIES_DAILY&symbol=[symbol]';
 
 exports.getDailyTimeSeries = async (stockSymbol) => {
 
@@ -19,7 +18,7 @@ exports.getDailyTimeSeries = async (stockSymbol) => {
   } else {
     console.log("If no cached data found, fetch from API");
     // If no cached data found in MongoDB, fetch from API
-    const response = await axios.get(replacedApiUrl);
+    const response = await aAService.get(replacedApiUrl);
     const responseData = response.data;
 
     // Save response data to MongoDB

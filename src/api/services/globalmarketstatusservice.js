@@ -1,10 +1,9 @@
-const axios = require("axios");
-const config = require("../config/config.json");
+const aAService = require("./alphaAdvantageService");
 const { BadRequestError } = require("../models/errors");
 const db = require("../utils/db");
 const MarketStatus = db.MarketStatus;
 
-const apiUrl = `${config.baseURL}/query?function=MARKET_STATUS&apikey=demo`;
+const apiUrl = 'query?function=MARKET_STATUS&apikey=demo';
 
 exports.getMarketStatus = async () => {
   
@@ -18,7 +17,7 @@ exports.getMarketStatus = async () => {
   } else {
     console.log("If no cached data found, fetch from API");
     // If no cached data found in MongoDB, fetch from API
-    const response = await axios.get(apiUrl);
+    const response = await aAService.get(apiUrl);
     const responseData = response.data;
 
     if (!responseData) {
