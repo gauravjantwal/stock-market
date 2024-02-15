@@ -19,7 +19,7 @@ module.exports = (router) => {
       windowMs: durationInMinutes * 60 * 1000,
       max: requests, // max requests per windowMs
       headers: true,
-      message: "You have exceeded your 3 requests per 15 minute limit.",
+      message: `You have exceeded your ${requests} requests per ${durationInMinutes} minute limit.`,
     });
 
   router.get("/dashboard", dashboardcontroller.getdashboard);
@@ -71,9 +71,29 @@ module.exports = (router) => {
   );
   router.get("/user/signout", userController.getUserSignOut);
 
-  router.get("/watchlist", authorize, watchlistController.getWatchlists);
+  router.get(
+    "/watchlist",
+    limitApiRate(5, 15),
+    authorize,
+    watchlistController.getWatchlists
+  );
   router.get("/watchlist/:id", authorize, watchlistController.getWatchlist);
-  router.post("/watchlist", authorize, watchlistController.postWatchlist);
-  router.put("/watchlist/:id", authorize, watchlistController.putWatchlist);
-  router.delete("/watchlist/:id", authorize, watchlistController.deleteWatchlist);
+  router.post(
+    "/watchlist",
+    limitApiRate(5, 15),
+    authorize,
+    watchlistController.postWatchlist
+  );
+  router.put(
+    "/watchlist/:id",
+    limitApiRate(5, 15),
+    authorize,
+    watchlistController.putWatchlist
+  );
+  router.delete(
+    "/watchlist/:id",
+    limitApiRate(5, 15),
+    authorize,
+    watchlistController.deleteWatchlist
+  );
 };
