@@ -32,7 +32,7 @@ exports.userSignIn = async (email, password) => {
 
   //Creating token
   const token = jwt.sign(
-    { _id: user._id, email },
+    { id: user._id, email },
     process.env.jwtSecret || config.jwtSecret
   );
 
