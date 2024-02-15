@@ -13,11 +13,15 @@ mongoose
     console.log("Unable to connect to DB");
     console.log(err);
   });
-mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;  
 
 module.exports = {
   User: require("../models/user"),
   CompanyOverview: require("../models/companyoverview"),
   NewsAndSentiments: require("../models/newsandsentiments"),
-  WatchList : require("../models/watchlist"),
+  Ticker: require("../models/ticker"),
+  TimeSeriesDaily: require("../models/timeseriesdaily"),
+  BalanceSheet: require("../models/balancesheet"),
+  WatchList: require("../models/watchlist"),
+
 };

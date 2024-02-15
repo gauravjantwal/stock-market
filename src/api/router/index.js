@@ -1,26 +1,34 @@
+const rateLimit = require('express-rate-limit');
+const authorize = require('../middleware/authorizeHandlerMiddleware');
+
 const dashboardcontroller = require("../controllers/dashboardcontroller");
-const timeseriescontroller = require("../controllers/timeseriesdailycontroller");
-const usercontroller = require("../controllers/usercontroller");
-const newsandsentimentscontroller = require("../controllers/newsandsentimentscontroller");
-const companyoverviewcontroller = require("../controllers/companyoverviewcontroller");
-const topgainerandloosercontroller = require("../controllers/topgainerandloosercontroller");
-const stocksearchcontroller = require("../controllers/stocksearchcontroller");
-const watchlistcontroller = require("../controllers/watchlistcontroller");
+const companyBalancesheetController = require("../controllers/balancesheetcontroller");
+const companyOverviewController = require("../controllers/companyoverviewcontroller");
+const globalMarketStatusController = require("../controllers/globalmarketstatuscontroller");
+const newsAndSentimentsController = require("../controllers/newsandsentimentscontroller");
+const tickerSearchController = require("../controllers/tickersearchcontroller");
+const timeSeriesController = require("../controllers/timeseriescontroller");
+const topGainerAndLooserController = require("../controllers/topgainerandloosercontroller");
+const userController = require("../controllers/usercontroller");
 
-module.exports = function (router) {
+module.exports = (router) => {
+
+  const limitApiRate = (requests, durationInMinutes) => rateLimit({
+    windowMs: durationInMinutes * 60 * 1000,
+    max: requests, // max requests per windowMs
+    headers: true,
+    message: 'You have exceeded your 3 requests per 15 minute limit.'
+  });
+
   router.get("/dashboard", dashboardcontroller.getdashboard);
-  router.get(
-    "/timeseriesdaily/:stocksymbol",
-    timeseriescontroller.gettimeseriesdaily
-  );
-  router.get(
-    "/topgainerandlooser",
-    topgainerandloosercontroller.gettopgainerandlooser
-  );
-  router.get("/stocksearch", stocksearchcontroller.getstocksearch);
-
-  newsandsentimentscontroller(router);
-  companyoverviewcontroller(router);
-  usercontroller(router);
-  watchlistcontroller(router);
+  router.get("/company/:stocksymbol/balancesheet", companyBalancesheetController.getCompanyBalancesheet);
+  router.get("/company/:stocksymbol/overview", companyOverviewController.getCompanyOverview);
+  router.get("/globalmarket/status", globalMarketStatusController.getGlobalMarketStatus);
+  router.get("/news/sentiments", newsAndSentimentsController.getNewsAndSentiments);
+  router.get("/ticker/:stocksymbol/search", tickerSearchController.getTickerSearch);
+  router.get("/timeseries/:stocksymbol/daily", timeSeriesController.getDailyTimeSeries);
+  router.get("/timeseries/:stocksymbol/intraday", timeSeriesController.getIntradayTimeSeries);
+  router.get("/top/gainers/loosers/traded", topGainerAndLooserController.getTopGainerLooserAndTraded);
+  router.post("/user/signup", limitApiRate(5, 15), userController.postUserSignUp);
+  router.post("/user/signin", limitApiRate(5, 15), userController.postUserSignIn);
 };
