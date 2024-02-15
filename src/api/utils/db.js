@@ -19,4 +19,5 @@ module.exports = {
   User: require("../models/user"),
   CompanyOverview: require("../models/companyoverview"),
   NewsAndSentiments: require("../models/newsandsentiments"),
+  WatchList : require("../models/watchlist"),
 };
