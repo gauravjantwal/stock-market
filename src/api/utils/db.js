@@ -22,5 +22,5 @@ module.exports = {
   Ticker: require("../models/ticker"),
   TimeSeriesDaily: require("../models/timeseriesdaily"),
   BalanceSheet: require("../models/balancesheet"),
-  CompanyIncomeStatement: require("../models/incomestatement"),
+  WatchList: require("../models/watchlist"),
 };
