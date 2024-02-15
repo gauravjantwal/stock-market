@@ -1,11 +1,10 @@
 const { BadRequestError } = require('../models/errors');
 const db = require('../utils/db');
-const Watchlist = db.WatchList;
+const Watchlists = db.WatchList;
 
-const create = async (req, res) => {
-    watchlist = new Watchlist(req.body);
-    await watchlist.save(watchlist);
-    res.json(watchlist);
+exports.createWatchlist = async (userid, name) => {
+    const watchlist = new Watchlist({ name });
+    await Watchlists.save(watchlist);
 }
 
 
@@ -43,8 +42,8 @@ const deleteWatchlistById = async (watchlistId) => {
             throw new BadRequestError('Watchlist not found');
         }
 
-         // Delete the watchlist using deleteOne
-         await Watchlist.deleteOne({ _id: watchlistId });
+        // Delete the watchlist using deleteOne
+        await Watchlist.deleteOne({ _id: watchlistId });
 
         return watchlist; // You can return the deleted watchlist if needed
     } catch (error) {
@@ -76,10 +75,8 @@ const updateWatchlistById = async (watchlistId, updatedData) => {
 };
 
 
-
-exports.watchlist = create;
 exports.getWatchlists = getWatchlists;
 exports.getWatchlistById = getWatchlistById;
-exports.deleteWatchlistById =deleteWatchlistById;
+exports.deleteWatchlistById = deleteWatchlistById;
 exports.updateWatchlistById = updateWatchlistById;
 
