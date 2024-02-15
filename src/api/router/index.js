@@ -10,6 +10,7 @@ const tickerSearchController = require("../controllers/tickersearchcontroller");
 const timeSeriesController = require("../controllers/timeseriescontroller");
 const topGainerAndLooserController = require("../controllers/topgainerandloosercontroller");
 const userController = require("../controllers/usercontroller");
+const incomestatementcontroller = require("../controllers/incomestatementcontroller");
 
 module.exports = (router) => {
 
@@ -31,4 +32,5 @@ module.exports = (router) => {
   router.get("/top/gainers/loosers/traded", topGainerAndLooserController.getTopGainerLooserAndTraded);
   router.post("/user/signup", limitApiRate(5, 15), userController.postUserSignUp);
   router.post("/user/signin", limitApiRate(5, 15), userController.postUserSignIn);
+  incomestatementcontroller(router);
 };
