@@ -11,6 +11,7 @@ const tickerSearchController = require("../controllers/tickersearchcontroller");
 const timeSeriesController = require("../controllers/timeseriescontroller");
 const topGainerAndLooserController = require("../controllers/topgainerandloosercontroller");
 const userController = require("../controllers/usercontroller");
+const watchlistController = require("../controllers/watchlistcontroller");
 
 module.exports = (router) => {
   const limitApiRate = (requests, durationInMinutes) =>
@@ -69,4 +70,10 @@ module.exports = (router) => {
     userController.postUserSignIn
   );
   router.get("/user/signout", userController.getUserSignOut);
+
+  router.get("/watchlist", authorize, watchlistController.getWatchlists);
+  router.get("/watchlist/:id", authorize, watchlistController.getWatchlist);
+  router.post("/watchlist", authorize, watchlistController.postWatchlist);
+  router.put("/watchlist/:id", authorize, watchlistController.putWatchlist);
+  router.delete("/watchlist/:id", authorize, watchlistController.deleteWatchlist);
 };
