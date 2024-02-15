@@ -1,5 +1,9 @@
 const tickersearchservice = require("../services/tickersearchservice");
 
-module.exports = function (router) {
-    router.get('/ticker/:symbolOrName/search', tickersearchservice.getTickerSearch);
+
+exports.getTickerSearch = async (req, res) => {
+    const stockSymbol = req.params.stocksymbol;
+    const response = tickersearchservice.searchTicker(stockSymbol);
+    res.send(response);
+
 };

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TickerSearchSchema = new mongoose.Schema({
+const TickerSchema = new mongoose.Schema({
   _id: String,
   assetType: String,
   exchange: String,
@@ -10,5 +10,4 @@ const TickerSearchSchema = new mongoose.Schema({
   SymbolWithName: String,
   });
 
-  const TickerSearch = mongoose.model('stockssymbol', TickerSearchSchema);
-  module.exports = TickerSearch;
+  module.exports = mongoose.model('Ticker', TickerSchema);

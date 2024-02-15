@@ -9,9 +9,4 @@ const timeSeriesDailySchema = new mongoose.Schema({
   },
 });
 
-const TimeSeriesDaily = mongoose.model(
-  "TimeSeriesDaily",
-  timeSeriesDailySchema
-);
-
-module.exports = TimeSeriesDaily;
+module.exports = mongoose.model("TimeSeriesDaily", timeSeriesDailySchema);

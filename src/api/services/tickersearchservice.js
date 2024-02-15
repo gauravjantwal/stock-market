@@ -1,17 +1,16 @@
 const { BadRequestError } = require('../models/errors');
 const db = require('../utils/db');
-const TickerSearch = require("../models/tickerseach");
+const Ticker = db.Ticker;
 
-const searchByStockName = async (req, res) => {
-  
-    const query = { "SymbolWithName": { $regex: req.params.symbolOrName, $options: 'i' } };
+exports.searchTicker = async (stockSymbol) => {
 
-    const result = await TickerSearch.find(query);
+    const query = { "SymbolWithName": { $regex: stockSymbol, $options: 'i' } };
+
+    const result = await Ticker.find(query);
+
     if (result.length == 0) {
-        throw new BadRequestError('Requested data Not found.', 404);
+        throw new BadRequestError("Symbol '" + stockSymbol + "' not found.", 404);
     }
-    res.send(result);
+
+    return result;
 }
-
-exports.getTickerSearch = searchByStockName;
-

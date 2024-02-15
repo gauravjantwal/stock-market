@@ -1,11 +1,6 @@
 const topgainerandlooserservice = require("../services/topgainerandlooserservice");
 
-module.exports = function (router) {
-    router.get('/TopGainersLoosersTraded', topgainerandlooserservice.gettopgainerandlooser);
+exports.getTopGainerLooserAndTraded = async (req, res) => {
+    var response = await topgainerandlooserservice.getTopGainerLooserAndTraded();
+    res.send(response);
 };
-
-
-    
-    
-
-
