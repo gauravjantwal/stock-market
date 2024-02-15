@@ -1,3 +1,4 @@
+const errorHandler = require("../middleware/errorHandlerMiddleware");
 const companyOverviewService = require("../services/companyoverviewservice");
 
 module.exports = function (router) {
@@ -9,8 +10,7 @@ module.exports = function (router) {
       );
       res.send(responseData);
     } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Internal server error");
+      errorHandler(error);
     }
   });
 };

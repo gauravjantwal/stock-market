@@ -1,4 +1,5 @@
 const newsAndSentimentsService = require("../services/newsandsentimentsservice");
+const errorHandler = require("../middleware/errorHandlerMiddleware");
 
 module.exports = function (router) {
   router.get("/news/sentiments", async function (req, res) {
@@ -7,8 +8,7 @@ module.exports = function (router) {
         await newsAndSentimentsService.getNewsAndSentiments();
       res.send(responseData);
     } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Internal server error");
+      errorHandler(error);
     }
   });
 };
