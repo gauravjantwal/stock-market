@@ -6,15 +6,10 @@ const watchlistSchema = new mongoose.Schema(
         name: {
             type: String,
             required: true,
-            maxlenght: 32,
-            trim: true
-        },
-        description: {
-            type: String,
-            required: true,
-            maxlenght: 32,
+            maxlenght: 200,
             trim: true
         }
+        
     }
 );
 
