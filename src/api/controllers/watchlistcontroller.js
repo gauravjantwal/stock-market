@@ -14,7 +14,7 @@ exports.getWatchlists = async (req, res) => {
 
     const allWatchlists = await watchlistService.getWatchlists();
 
-    res.send(allWatchlists);
+    res.json(allWatchlists);
 };
 
 exports.getWatchlist = async (req, res) => {
@@ -42,7 +42,7 @@ exports.putWatchlist = async (req, res) => {
         throw new NotFoundException('Watchlist not found');
     }
 
-    res.status(200);
+    res.status(202); // Accepted
     res.send();
 };
 
@@ -59,6 +59,6 @@ exports.deleteWatchlist = async (req, res) => {
         throw new NotFoundException('Watchlist not found');
     }
 
-    res.status(200);
+    res.status(202); // Accepted
     res.send();
 };
