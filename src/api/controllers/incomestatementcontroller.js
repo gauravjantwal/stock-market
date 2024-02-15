@@ -1,10 +1,10 @@
-const timeseriesdailyService = require("../services/timeseriesdailyservice");
+const incomeStatementService = require("../services/incomestatementservice");
 
 module.exports = function (router) {
-  router.get("/timeseriesdaily/:stocksymbol", async function (req, res) {
+  router.get("/company/:stocksymbol/incomestatement", async function (req, res) {
     try {
       const stockSymbol = req.params.stocksymbol;
-      const responseData = await timeseriesdailyService.getTimeSeriesDaily(
+      const responseData = await incomeStatementService.getCompanyIncomeStatement(
         stockSymbol
       );
       res.send(responseData);
