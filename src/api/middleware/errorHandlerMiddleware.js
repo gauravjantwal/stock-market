@@ -19,6 +19,7 @@ const getErrorTitleByErrorCode = (error, errorCode) => ({
 
 module.exports = function (error, req, res, next) {
     if (error) {
+        console.log(error.stack); // to log the actual stack trace
         res.statusCode = getStatusCodeByError(error);
         res.status(res.statusCode);
         res.json({

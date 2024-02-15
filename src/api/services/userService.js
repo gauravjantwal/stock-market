@@ -1,53 +1,41 @@
+const jwt = require('jsonwebtoken');
 const { BadRequestError, AuthorizationError } = require('../models/errors');
+const config = require("../config/config.json");
 const db = require('../utils/db');
 const User = db.User;
-const config = require("../config/config.json");
-const jwt = require('jsonwebtoken');
 
-const signUp = async (req, res) => {
-    const userEmail = req.body.email;
-    let user = await User.findOne({ email: { $eq: userEmail } });
+exports.userSignUp = async (name, email, password) => {
+    let user = await User.findOne({ email: { $eq: email } });
+
     if (user) {
-        throw new BadRequestError('User already registered with email "' + userEmail + '".', 409);
+        throw new BadRequestError('User already registered with email [' + email + '].', 409);
     }
-    user = new User(req.body);
+
+    user = new User({ name, email, password });
     await user.save(user);
-    res.status(201);
-    res.send();
 }
 
-const signIn = async (req, res) => {
-    const { email, password } = req.body;
-    
+exports.userSignIn = async (email, password) => {
     let user = await User.findOne({ email: { $eq: email } });
 
     if (!user) {
-        throw new AuthorizationError('Invalid User or Passoword');
+        throw new AuthorizationError('Invalid username or password.');
     }
 
     //Authenticate the User
     if (!user.authenticate(password)) {
-        throw new AuthorizationError('Invalid User or Passoword');
+        throw new AuthorizationError('Invalid username or password.');
     }
 
     //Creating token
-    const token = jwt.sign({ _id: user._id }, process.env.jwtSecret || config.jwtSecret);
-
-    //Pass token into cookie
-    res.cookie('token', token, { expire: new Date() + 1 });
+    const token = jwt.sign({ _id: user._id, email }, process.env.jwtSecret || config.jwtSecret);
 
     // Read name from user object
     const { name } = user
 
     //Send response
-    return res.json({
-        user: {
-            name,
-            email
-        }
-    });
-
+    return {
+        name,
+        token
+    };
 };
-
-exports.userSignUp = signUp;
-exports.userSignIn = signIn;
