@@ -5,6 +5,7 @@ const dashboardcontroller = require("../controllers/dashboardcontroller");
 const companyBalancesheetController = require("../controllers/balancesheetcontroller");
 const companyOverviewController = require("../controllers/companyoverviewcontroller");
 const globalMarketStatusController = require("../controllers/globalmarketstatuscontroller");
+const incomeStatementController = require("../controllers/incomestatementcontroller");
 const newsAndSentimentsController = require("../controllers/newsandsentimentscontroller");
 const tickerSearchController = require("../controllers/tickersearchcontroller");
 const timeSeriesController = require("../controllers/timeseriescontroller");
@@ -28,6 +29,10 @@ module.exports = (router) => {
   router.get(
     "/company/:stocksymbol/overview",
     companyOverviewController.getCompanyOverview
+  );
+  router.get(
+    "/company/:stocksymbol/incomestatement",
+    incomeStatementController.getCompanyIncomeStatement
   );
   router.get(
     "/globalmarket/status",
@@ -64,5 +69,4 @@ module.exports = (router) => {
     userController.postUserSignIn
   );
   router.get("/user/signout", userController.getUserSignOut);
-  incomestatementcontroller(router);
 };
