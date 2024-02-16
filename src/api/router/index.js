@@ -38,7 +38,13 @@ module.exports = (router) => {
 
   router.get("/watchlist", limitApiRate(5, 15), authorize, watchlistController.getWatchlists);
   router.get("/watchlist/:id", authorize, watchlistController.getWatchlist);
-  router.post("/watchlist", limitApiRate(5, 15), authorize, watchlistController.postWatchlist);
-  router.put("/watchlist/:id", limitApiRate(5, 15), authorize, watchlistController.putWatchlist);
+  router.post("/watchlist", limitApiRate(5, 15),authorize, watchlistController.postWatchlist);
+  router.put("/watchlist/:id", limitApiRate(5, 15),authorize, watchlistController.putWatchlist);
   router.delete("/watchlist/:id", limitApiRate(5, 15), authorize, watchlistController.deleteWatchlist);
+  router.post("/watchlist/:id/bookmarks", limitApiRate(5, 15), authorize, watchlistController.postWatchlistBookmarks);
+  router.get("/watchlist/:id/bookmarks", limitApiRate(5, 15), authorize, watchlistController.getWatchlistBookmarks);
+  router.delete("/watchlist/:id/bookmarks/:symbol", limitApiRate(5, 15), authorize, watchlistController.deleteWatchlistBookmark);
+
+
+
 };

@@ -1,64 +1,81 @@
-const { NotFoundException } = require('../models/errors');
+const { NotFoundException ,BadRequestError} = require('../models/errors');
 const watchlistService = require('../services/watchlistService');
 
 exports.postWatchlist = async (req, res) => {
-    const { name } = req.body;
-    const userId = req.user.id;
-    await watchlistService.createWatchlist(userId, name);
-
+    const { name } = req.body;   
+    const  userid  = req.user.id;
+    await watchlistService.createWatchlist(name,userid);
     res.status(201);
     res.send();
 };
 
 exports.getWatchlists = async (req, res) => {
-
-    const allWatchlists = await watchlistService.getWatchlists();
-
+    const userid  = req.user.id;
+    const allWatchlists = await watchlistService.getWatchlists(userid);
     res.json(allWatchlists);
 };
 
 exports.getWatchlist = async (req, res) => {
-
+    const userid  = req.user.id;
     const watchlistId = req.params.id;
-
-    // Call the getWatchlistById function from watchlistService
-    const watchlist = await watchlistService.getWatchlistById(watchlistId);
-
-    // Check if a watchlist was found
-    if (!watchlist) {
-        throw new NotFoundException('Watchlist not found');
+    const watchlist = await watchlistService.getWatchlistById(watchlistId,userid);
+    if (watchlist == null) {
+        throw new BadRequestError('Watchlist not found');
     }
-
-    // Send the retrieved watchlist in the response
     res.json(watchlist);
 };
 
 exports.putWatchlist = async (req, res) => {
-
+    const  userid  = req.user.id;
     const watchlistId = req.params.id;
-    const updatedWatchlist = await watchlistService.updateWatchlistById(watchlistId, req.body);
-
+    const updatedWatchlist = await watchlistService.updateWatchlistById(watchlistId, userid,req.body);
     if (!updatedWatchlist) {
-        throw new NotFoundException('Watchlist not found');
+        throw new BadRequestError('Watchlist not found');
     }
-
     res.status(202); // Accepted
     res.send();
 };
 
 
 exports.deleteWatchlist = async (req, res) => {
-
+    const  userid  = req.user.id;
     const watchlistId = req.params.id;
-    console.log(watchlistId);
+    await watchlistService.deleteWatchlistById(watchlistId,userid);    
+    res.status(202); // Accepted
+    res.send();
+};
 
-    // Call the deleteWatchlistById function from watchlistService
-    const deletedWatchlist = await watchlistService.deleteWatchlistById(watchlistId);
 
-    if (!deletedWatchlist) {
-        throw new NotFoundException('Watchlist not found');
+
+exports.postWatchlistBookmarks = async (req, res) => {
+    const symbol = req.body.symbol;
+    const userid  = req.user.id;
+    const watchlistId = req.params.id;
+    const updatedWatchlist = await watchlistService.createWatchlistBookmarks(watchlistId, userid,symbol);
+    if (!updatedWatchlist) {
+        throw new BadRequestError('Watchlist not found');
     }
+    res.status(201); // Accepted
+    res.send();
+};
 
+
+
+exports.getWatchlistBookmarks = async (req, res) => {
+    const userid  = req.user.id;
+    const watchlistId = req.params.id;
+    const watchlist = await watchlistService.getWatchlistBookmarks(watchlistId,userid);
+    if (watchlist === null) {
+        throw new BadRequestError('Watchlist bookmarks not found');
+    }
+    res.json(watchlist);
+};
+
+exports.deleteWatchlistBookmark = async (req, res) => {
+    const  userid  = req.user.id;
+    const watchlistId = req.params.id;
+    const symbol = req.params.symbol;
+    await watchlistService.deleteWatchlistBookmarks(watchlistId,userid,symbol);    
     res.status(202); // Accepted
     res.send();
 };

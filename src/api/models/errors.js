@@ -20,8 +20,14 @@ class AuthorizationError extends Error {
     }
 }
 
-class NotFoundException extends Error {
+class NotFoundException extends ApplicationBaseError {
     constructor(message, statusCode = 404) {
+        super(message, statusCode);
+    }
+}
+
+class ForbiddenError extends ApplicationBaseError {
+    constructor(message, statusCode = 403) {
         super(message, statusCode);
     }
 }
@@ -29,5 +35,6 @@ class NotFoundException extends Error {
 module.exports = {
     AuthorizationError,
     BadRequestError,
-    NotFoundException
+    NotFoundException,
+    ForbiddenError
 };
