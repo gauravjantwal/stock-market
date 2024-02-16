@@ -22,8 +22,12 @@ exports.postUserSignIn = async (req, res) => {
     const { name, token } = response;
 
     //Pass token into cookie
-    res.cookie('token', token, { expire: new Date() + 1 });
+    res.cookie('token', token, {
+        maxAge: 60 * 60 * 1000, // One hour only.
+        httpOnly: true
+    });
 
+    req.session['user'] = { name, email }
 
     return res.json({
         user: { name, email }
@@ -33,7 +37,8 @@ exports.postUserSignIn = async (req, res) => {
 
 exports.getUserSignOut = async (req, res) => {
     res.clearCookie("token");
-    
+    res.clearCookie('connect.sid');
+    req.session?.destroy();
     res.status(204);
     res.send();
 };

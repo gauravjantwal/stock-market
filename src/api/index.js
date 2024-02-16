@@ -22,7 +22,7 @@ app.use(cors())
 //Connecting to MongoDB to store session
 const store = new monogoDBSession({
     uri: config.connectionString,
-    collection: 'Users',
+    collection: 'usersessions',
 });
 
 //store session in database
@@ -30,16 +30,18 @@ app.use(session({
     secret: process.env.jwtSecret || config.jwtSecret,
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 },
-    store: store   
-    }));
+    cookie: { maxAge: 24 * 60 * 60 * 1000 }, // Session valid for 24 hours
+    store: store
+}));
 
-  app.use((req, res, next) => {
-    if (req.cookies.user_sid && !req.session.user) {
-        res.clearCookie('user_sid');        
-    }
-    next();
-});
+// This is not required, as logout controller taking care of this.
+// We can use this middleware to delete the expired session.
+// app.use((req, res, next) => {
+//     if (req.cookies['connect.sid'] && !req.session.user) {
+//         res.clearCookie('connect.sid');
+//     }
+//     next();
+// });
 
 const router = express.Router();
 appRoutes(router); // Register all application routes
