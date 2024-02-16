@@ -1,7 +1,13 @@
+const { validationResult } = require('express-validator');
 const { NotFoundError } = require('../models/errors');
 const watchlistService = require('../services/watchlistService');
 
 exports.postWatchlist = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ validationErrors: errors.array() });
+    }
+
     const { name } = req.body;
     const userId = req.user.id;
     await watchlistService.createWatchlist(userId, name);
@@ -18,6 +24,10 @@ exports.getWatchlists = async (req, res) => {
 };
 
 exports.getWatchlist = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ validationErrors: errors.array() });
+    }
 
     const watchlistId = req.params.id;
 
@@ -34,6 +44,10 @@ exports.getWatchlist = async (req, res) => {
 };
 
 exports.putWatchlist = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ validationErrors: errors.array() });
+    }
 
     const watchlistId = req.params.id;
     const updatedWatchlist = await watchlistService.updateWatchlistById(watchlistId, req.body);
@@ -48,6 +62,10 @@ exports.putWatchlist = async (req, res) => {
 
 
 exports.deleteWatchlist = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ validationErrors: errors.array() });
+    }
 
     const watchlistId = req.params.id;
     console.log(watchlistId);

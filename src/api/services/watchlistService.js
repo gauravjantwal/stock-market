@@ -19,7 +19,7 @@ const getWatchlists = async () => {
 
 const getWatchlistById = async (watchlistId) => {
 
-    const watchlist = await Watchlists.findById(watchlistId,).select(watchlistProjection);
+    const watchlist = await Watchlists.findById(watchlistId).select(watchlistProjection);
 
     return watchlist;
 };
