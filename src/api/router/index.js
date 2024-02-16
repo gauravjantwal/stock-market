@@ -35,8 +35,12 @@ module.exports = (router) => {
     param("stocksymbol", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3, max: 10 })
   ], incomeStatementController.getCompanyIncomeStatement);
 
-  router.get("/globalmarket/status", globalMarketStatusController.getGlobalMarketStatus);
+  router.get("/company/:stocksymbol/news/sentiments", [
+    param("stocksymbol", "Symbol should be of atlest 3 characters and maximum of 10.").isLength({ min: 3, max: 10 })
+  ], newsAndSentimentsController.getNewsAndSentimentForSymbol);
+
   router.get("/news/sentiments", newsAndSentimentsController.getNewsAndSentiments);
+  router.get("/globalmarket/status", globalMarketStatusController.getGlobalMarketStatus);
 
   router.get("/ticker/:stocksymbol/search", [
     param("stocksymbol", "Symbol should be of atlest 3 characters and maximum of 10.").isLength({ min: 3, max: 10 })
