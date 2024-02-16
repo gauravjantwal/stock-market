@@ -1,38 +1,52 @@
-const { BadRequestError } = require('../models/errors');
+const { NotFoundError } = require('../models/errors');
 const db = require('../utils/db');
 const Watchlists = db.WatchList;
 const watchlistProjection = { name: 1, _id: 1 };
+const watchlistBookmarkProjection = { bookmarks: 1, _id: 0 };
 
-exports.createWatchlist = async (userid, name) => {
+exports.getAllWatchlists = async (userid) => {
 
-    const watchlist = new Watchlists({ name });
-
-    await Watchlists.save(watchlist);
-}
-
-const getWatchlists = async () => {
-
-    const allWatchlists = await Watchlists.find().select(watchlistProjection);
+    const allWatchlists = await Watchlists.find({ userid }).select(watchlistProjection);
 
     return allWatchlists;
 };
+exports.getWatchlistById = async (userid, watchlistId) => {
 
-const getWatchlistById = async (watchlistId) => {
-
-    const watchlist = await Watchlists.findById(watchlistId).select(watchlistProjection);
-
-    return watchlist;
-};
-
-
-
-const deleteWatchlistById = async (watchlistId) => {
-    // Find the watchlist by ID
-    const watchlist = await Watchlists.findById(watchlistId);
+    const watchlist = await Watchlists.findOne({ _id: watchlistId, userid: userid }).select(watchlistProjection);
 
     // Check if the watchlist exists
     if (!watchlist) {
-        throw new BadRequestError('Watchlist not found');
+        throw new NotFoundError('Watchlist not found');
+    }
+
+    return watchlist;
+};
+exports.createWatchlist = async (userid, name) => {
+    const watchlist = new Watchlists({ userid, name });
+
+    await watchlist.save(watchlist);
+}
+exports.updateWatchlistById = async (userid, watchlistId, watchlistName) => {
+    // Find the watchlist by ID
+    const watchlist = await Watchlists.findOne({ _id: watchlistId, userid: userid });
+
+    // Check if the watchlist exists
+    if (!watchlist) {
+        throw new NotFoundError('Watchlist not found');
+    }
+
+    // Update watchlist data
+    await Watchlists.updateOne({ _id: watchlistId, userid: userid }, { name: watchlistName });
+
+    return watchlist;
+};
+exports.deleteWatchlistById = async (userid, watchlistId) => {
+    // Find the watchlist by ID
+    const watchlist = await Watchlists.findOne({ _id: watchlistId, userid: userid });
+
+    // Check if the watchlist exists
+    if (!watchlist) {
+        throw new NotFoundError('Watchlist not found');
     }
 
     // Delete the watchlist using deleteOne
@@ -41,26 +55,16 @@ const deleteWatchlistById = async (watchlistId) => {
     return watchlist;
 };
 
+exports.getAllBookmarkByWatchlistId = async (userid, watchlistId) => {
+    const allBookmark = await Watchlists.findOne({ _id: watchlistId, userid: userid }).select(watchlistBookmarkProjection);
 
-const updateWatchlistById = async (watchlistId, updatedData) => {
-    // Find the watchlist by ID
-    const watchlist = await Watchlists.findById(watchlistId);
-
-    // Check if the watchlist exists
-    if (!watchlist) {
-        throw new BadRequestError('Watchlist not found');
-    }
-
-    // Update watchlist data
-    Watchlists.set(updatedData);
-    await watchlist.save();
-
-    return watchlist;
-};
-
-
-exports.getWatchlists = getWatchlists;
-exports.getWatchlistById = getWatchlistById;
-exports.deleteWatchlistById = deleteWatchlistById;
-exports.updateWatchlistById = updateWatchlistById;
-
+    return allBookmark.bookmarks;
+}
+exports.createBookmarkByWatchlistId = async (userid, watchlistId, symbol) => {
+    await Watchlists.findOneAndUpdate({ _id: watchlistId, userid: userid }, { $addToSet: { bookmarks: symbol } });
+    return symbol;
+}
+exports.deleteBookmarkByWatchlistId = async (userid, watchlistId, symbol) => {
+    await Watchlists.findOneAndUpdate({ _id: watchlistId, userid: userid }, { $pull: { bookmarks: symbol } });
+    return symbol;
+}
