@@ -22,7 +22,6 @@ module.exports = (router) => {
     message: `You have exceeded your ${requests} requests per ${durationInMinutes} minute limit.`
   });
 
-  router.get("/dashboard", dashboardcontroller.getdashboard);
   router.get("/company/:stocksymbol/balancesheet", companyBalancesheetController.getCompanyBalancesheet);
   router.get("/company/:stocksymbol/overview", companyOverviewController.getCompanyOverview);
   router.get("/company/:stocksymbol/incomestatement", incomeStatementController.getCompanyIncomeStatement);
