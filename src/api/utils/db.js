@@ -24,5 +24,5 @@ module.exports = {
   TimeSeriesDaily: require("../models/timeseriesdaily"),
   BalanceSheet: require("../models/balancesheet"),
   WatchList: require("../models/watchlist"),
-
+  TimeSeriesIntraDay: require("../models/timeseriesintraday"),
 };

@@ -20,6 +20,14 @@ const getErrorTitleByErrorCode = (error, errorCode) => ({
     409: error.message ?? 'Conflict'
 })[errorCode] ?? 'Unexpected error';
 
+
+const getErrorsByErrorObject = (error, errorCode) => ({
+    400: error.message ?? 'Bad request',
+    401: error.message ?? 'Unauthorize',
+    404: error.message ?? 'Not Found',
+    409: error.message ?? 'Conflict'
+})[errorCode] ?? 'Unexpected error';
+
 module.exports = function (error, req, res, next) {
     if (error) {
         console.log(error.stack); // to log the actual stack trace
