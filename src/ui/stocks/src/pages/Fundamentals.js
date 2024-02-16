@@ -7,7 +7,29 @@ const Fundamentals = () => {
       console.log(location);
     return (
         <div>
-        <h3>Fundamentals</h3>
+        <h5>Fundamentals</h5>
+        <table className="table table-striped" border="no-border">
+            <tbody>
+                <tr>
+                    <td>Market Cap</td> 
+                    <td>65,500</td>
+                    <td>ROE</td>
+                    <td>9.95%</td>
+                </tr>
+                <tr>
+                    <td>Market Cap</td> 
+                    <td>65,500</td>
+                    <td>ROE</td>
+                    <td>9.95%</td>
+                </tr>
+                <tr>
+                    <td>Market Cap</td> 
+                    <td>65,500</td>
+                    <td>ROE</td>
+                    <td>9.95%</td>
+                </tr>
+            </tbody>
+        </table>
         </div>
     );
 };
