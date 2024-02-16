@@ -8,14 +8,15 @@ import IPO from "./pages/ipo";
 import Menu from "./layout/menu";
 import logo from './logo.webp';
 import WatchListDetailsPage from "./pages/watchlist-details-page";
+import Login from "./pages/login";
 
 function App() {
   return (
     <div>
       <div className="container">
         <nav className="navbar navbar-expand-sm">
-          <div className="">
-            <a className="navbar-brand float-left">
+          <div className="w-100">
+            <a className="navbar-brand float-left w-10">
               {/* <strong>Stock Market</strong>
                */}
                <img className="logo" src={logo}></img>
@@ -39,6 +40,7 @@ function App() {
             <Route path="/watchlist" Component={watchList} />
             <Route path="/ipo" Component={IPO} />
             <Route path="/about" Component={About} />
+            <Route path="/login" Component={Login} />
             <Route path="/details">
               <Route path=":id" Component={WatchListDetailsPage}></Route>
               <Route path=":name" Component={WatchListDetailsPage}></Route>

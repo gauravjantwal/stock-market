@@ -119,3 +119,32 @@ body{
 .section2 .card-title{
   color: #545b62;
 }
+
+.w-100 {
+  width: 100%;
+}
+
+.w-90 {
+  width: 90%;
+}
+
+.w-90 {
+  width: 90%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.action-button {
+  display: flex;
+  justify-content: end;
+}
+
+.login-btn {
+  border: none;
+  background: unset;
+  color: #5cd578;
+  font-size: 16px;
+  font-weight: 700;
+}
