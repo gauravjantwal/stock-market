@@ -24,3 +24,18 @@ exports.getIntradayTimeSeries = async (req, res) => {
   const responseData = await timeseriesdailyService.getIntradayTimeSeries(stockSymbol);
   res.send(responseData);
 }
+
+
+exports.getIntradayStocksUpdate = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ validationErrors: errors.array() });
+  }
+  
+const stockSymbols = req.params.stocksymbols?.split(/\s*,\s*/);
+
+const responseData = await timeseriesdailyService.intradayStocksUpdate(stockSymbols);
+
+res.send(responseData);
+}
