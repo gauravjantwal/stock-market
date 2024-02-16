@@ -8,6 +8,8 @@ import IPO from "./pages/ipo";
 import Menu from "./layout/menu";
 import logo from './logo.webp';
 import WatchListDetailsPage from "./pages/watchlist-details-page";
+import signup from "./pages/signup";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -35,7 +37,9 @@ function App() {
       <div className="container mt-3">
         <div>
           <Routes>
-            <Route path="/" Component={Dashboard} />
+            <Route path="/" Component={signup} />
+            <Route path="/login" Component={Login} />
+            <Route path="/dashboard" Component={Dashboard} />
             <Route path="/watchlist" Component={watchList} />
             <Route path="/ipo" Component={IPO} />
             <Route path="/about" Component={About} />

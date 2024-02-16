@@ -17,16 +17,16 @@ const Fundamentals = () => {
                     <td>9.95%</td>
                 </tr>
                 <tr>
-                    <td>Market Cap</td> 
-                    <td>65,500</td>
-                    <td>ROE</td>
-                    <td>9.95%</td>
+                    <td>P/E Ratio</td> 
+                    <td>95.27</td>
+                    <td>EPS(TTM)</td>
+                    <td>0.51</td>
                 </tr>
                 <tr>
-                    <td>Market Cap</td> 
-                    <td>65,500</td>
-                    <td>ROE</td>
-                    <td>9.95%</td>
+                    <td>P/B Ratio</td> 
+                    <td>19.34</td>
+                    <td>Dividend Yield</td>
+                    <td>0.05%</td>
                 </tr>
             </tbody>
         </table>
