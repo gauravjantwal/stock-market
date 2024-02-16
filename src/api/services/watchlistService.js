@@ -1,26 +1,26 @@
 const { BadRequestError } = require('../models/errors');
 const db = require('../utils/db');
 const Watchlists = db.WatchList;
+const watchlistProjection = { name: 1, _id: 1 };
 
 exports.createWatchlist = async (userid, name) => {
 
     const watchlist = new Watchlists({ name });
-    
+
     await Watchlists.save(watchlist);
 }
 
-
 const getWatchlists = async () => {
 
-    const allWatchlists = await Watchlists.find();
-    
+    const allWatchlists = await Watchlists.find().select(watchlistProjection);
+
     return allWatchlists;
 };
 
 const getWatchlistById = async (watchlistId) => {
 
-    const watchlist = await Watchlists.findById(watchlistId);
-    
+    const watchlist = await Watchlists.findById(watchlistId,).select(watchlistProjection);
+
     return watchlist;
 };
 
