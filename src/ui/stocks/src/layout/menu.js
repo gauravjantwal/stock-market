@@ -9,7 +9,7 @@ const Menu = () => {
     <div className="collapse navbar-collapse mt-3" id="collapsibleNavbar">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <NavLink activeClassName="active" className="nav-link" to="/">
+          <NavLink activeClassName="active" className="nav-link" to="/dashboard">
             Dashboard
           </NavLink>
         </li>
@@ -18,8 +18,7 @@ const Menu = () => {
           <NavLink
             activeClassName="active"
             className="nav-link"
-            to="/watchlist"
-          >
+            to="/watchlist">
             WatchList
           </NavLink>
         </li>

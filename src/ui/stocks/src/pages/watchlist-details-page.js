@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import tata from "./Images/tata-logo.png";
+import Fundamentals from './fundamentals';
 
 
 const WatchListDetailsPage = () => {
@@ -10,7 +11,7 @@ const WatchListDetailsPage = () => {
     return (
         <div>
         <h3>Watch list details</h3>
-        <p>{name}</p>
+        <Fundamentals></Fundamentals>
         </div>
     );
 };

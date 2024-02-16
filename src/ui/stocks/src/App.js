@@ -13,6 +13,8 @@ import logo from './logo.webp';
 import Login from "./pages/login";
 import AuthProvider from "./utility/authProvider";
 import WatchListDetailsPage from "./pages/watchlist-details-page";
+import signup from "./pages/signup";
+import WatchList from "./pages/watchList";
 
 function App() {
 
@@ -48,8 +50,9 @@ function App() {
       <div className="container mt-3">
         <div>
           <Routes>
-            <Route path="/login" component={Login} />
-            <Route path="/" Component={Dashboard} />
+            <Route path="/" Component={signup} />
+            <Route path="/login" Component={Login} />
+            <Route path="/dashboard" Component={Dashboard} />
             <Route path="/watchlist" element={<ProtectedRoute element={watchList} />} />
             <Route path="/about" Component={About} />
             <Route path="/details">
