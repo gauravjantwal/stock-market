@@ -8,11 +8,12 @@ module.exports = (req, res, next) => {
   //verify token which is in cookie value
   jwt.verify(authcookie, process.env.jwtSecret || config.jwtSecret, (err, data) => {
     if (err) {
+      res.clearCookie("token");
       res.sendStatus(401);
     }
     else if (data.id && data.email) {
-      const { id, email } = data
-      req.user = { id, email };
+      const { id } = data
+      req.user = { id };
       next();
     }
   });
