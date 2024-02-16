@@ -1,17 +1,30 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
+import { Provider } from 'react-redux';
+import store from './store/store';
+import ProtectedRoute from './utility/protectedRoute';
+import { loadUserFromStorage } from './services/userService';
 import {Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import About from "./pages/about";
 import watchList from "./pages/watchList";
-import IPO from "./pages/ipo";
 import Menu from "./layout/menu";
 import logo from './logo.webp';
+import Login from "./pages/login";
+import AuthProvider from "./utility/authProvider";
 import WatchListDetailsPage from "./pages/watchlist-details-page";
 
 function App() {
+
+  useEffect(() => {
+    // fetch current user from cookies   
+    loadUserFromStorage(store)
+
+  }, []);
+ 
   return (
-    <div>
+    <Provider store={store}>
+      <AuthProvider>
       <div className="container">
         <nav className="navbar navbar-expand-sm">
           <div className="">
@@ -35,9 +48,9 @@ function App() {
       <div className="container mt-3">
         <div>
           <Routes>
+            <Route path="/login" component={Login} />
             <Route path="/" Component={Dashboard} />
-            <Route path="/watchlist" Component={watchList} />
-            <Route path="/ipo" Component={IPO} />
+            <Route path="/watchlist" element={<ProtectedRoute element={watchList} />} />
             <Route path="/about" Component={About} />
             <Route path="/details">
               <Route path=":id" Component={WatchListDetailsPage}></Route>
@@ -46,7 +59,8 @@ function App() {
           </Routes>
         </div>
       </div>
-    </div>
+      </AuthProvider>
+    </Provider>
   );
 }
 

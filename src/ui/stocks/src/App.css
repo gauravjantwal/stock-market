@@ -119,3 +119,33 @@ body{
 .section2 .card-title{
   color: #545b62;
 }
+
+
+/* Define css class for global loading message to cover 
+   screen during axios operations */
+   .loading-indicator:before {
+    content: '';
+    background: #000000cc;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.loading-indicator:after {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1070;
+  -webkit-animation: spin 2s linear infinite;
+  /* Safari */
+  animation: spin 2s linear infinite;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 60px;
+  height: 60px;
+}
