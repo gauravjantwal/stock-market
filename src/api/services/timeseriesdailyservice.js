@@ -1,16 +1,15 @@
 const aAService = require("./alphaAdvantageService");
-const { NotFoundError } = require("../models/errors");
-const db = require("../utils/db");
-const CompanyOverview = db.CompanyOverview;
+const db = require('../utils/db');
+const TimeSeriesDaily = db.TimeSeriesDaily;
 
-const apiUrl = '/query?function=OVERVIEW&symbol=[symbol]';
+const apiUrl = '/query?function=TIME_SERIES_DAILY&symbol=[symbol]';
 
-exports.getCompanyOverview = async (stockSymbol) => {
+exports.getDailyTimeSeries = async (stockSymbol) => {
 
   const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
 
   // Check if data exists in MongoDB
-  const cachedData = await CompanyOverview.findOne({ symbol: stockSymbol });
+  const cachedData = await TimeSeriesDaily.findOne({ symbol: stockSymbol });
 
   if (cachedData) {
     // If cached data is found in MongoDB, return it
@@ -22,12 +21,8 @@ exports.getCompanyOverview = async (stockSymbol) => {
     const response = await aAService.get(replacedApiUrl);
     const responseData = response.data;
 
-    if (!responseData) {
-      throw new NotFoundError(`Symbol [${stockSymbol}] not found.`);
-    }
-
     // Save response data to MongoDB
-    await CompanyOverview.findOneAndUpdate(
+    await TimeSeriesDaily.findOneAndUpdate(
       { symbol: stockSymbol },
       { symbol: stockSymbol, data: responseData },
       { upsert: true }
@@ -38,4 +33,8 @@ exports.getCompanyOverview = async (stockSymbol) => {
     // Return response
     return responseData;
   }
+};
+
+exports.getIntradayTimeSeries = async (stockSymbol) => {
+  return stockSymbol;
 }

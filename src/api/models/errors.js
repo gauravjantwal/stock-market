@@ -19,7 +19,15 @@ class AuthorizationError extends Error {
         super(message, statusCode);
     }
 }
+
+class NotFoundError extends Error {
+    constructor(message, statusCode = 404) {
+        super(message, statusCode);
+    }
+}
+
 module.exports = {
     AuthorizationError,
-    BadRequestError
+    BadRequestError,
+    NotFoundError
 };

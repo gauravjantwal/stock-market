@@ -1,14 +1,14 @@
 const aAService = require("./alphaAdvantageService");
 const { BadRequestError } = require("../models/errors");
 const db = require("../utils/db");
-const NewsAndSentiments = db.NewsAndSentiments;
+const MarketStatus = db.MarketStatus;
 
-const apiUrl = 'query?function=NEWS_SENTIMENT';
+const apiUrl = 'query?function=MARKET_STATUS&apikey=demo';
 
-exports.getNewsAndSentiments = async () => {
-
+exports.getMarketStatus = async () => {
+  
   // Check if data exists in MongoDB
-  const cachedData = await NewsAndSentiments.findOne({ key: apiUrl });
+  const cachedData = await MarketStatus.findOne({ key: apiUrl });
 
   if (cachedData) {
     // If cached data is found in MongoDB, return it
@@ -24,8 +24,8 @@ exports.getNewsAndSentiments = async () => {
       throw new BadRequestError("Data not found");
     }
 
-    // Save response data to MongoDB with the API URL as key
-    await NewsAndSentiments.findOneAndUpdate(
+    // Save response data to MongoDB
+    await MarketStatus.findOneAndUpdate(
       { key: apiUrl },
       { key: apiUrl, data: responseData },
       { upsert: true }

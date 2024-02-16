@@ -1,14 +1,14 @@
 const aAService = require("./alphaAdvantageService");
-const { BadRequestError } = require("../models/errors");
 const db = require("../utils/db");
-const NewsAndSentiments = db.NewsAndSentiments;
+const BalanceSheet = db.BalanceSheet;
 
-const apiUrl = 'query?function=NEWS_SENTIMENT';
+const apiUrl = 'query?function=BALANCE_SHEET&symbol=[symbol]';
 
-exports.getNewsAndSentiments = async () => {
+exports.getBalanceSheet = async (stockSymbol) => {
+  const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
 
   // Check if data exists in MongoDB
-  const cachedData = await NewsAndSentiments.findOne({ key: apiUrl });
+  const cachedData = await BalanceSheet.findOne({ symbol: stockSymbol });
 
   if (cachedData) {
     // If cached data is found in MongoDB, return it
@@ -17,17 +17,13 @@ exports.getNewsAndSentiments = async () => {
   } else {
     console.log("If no cached data found, fetch from API");
     // If no cached data found in MongoDB, fetch from API
-    const response = await aAService.get(apiUrl);
+    const response = await aAService.get(replacedApiUrl);
     const responseData = response.data;
 
-    if (!responseData) {
-      throw new BadRequestError("Data not found");
-    }
-
-    // Save response data to MongoDB with the API URL as key
-    await NewsAndSentiments.findOneAndUpdate(
-      { key: apiUrl },
-      { key: apiUrl, data: responseData },
+    // Save response data to MongoDB
+    await BalanceSheet.findOneAndUpdate(
+      { symbol: stockSymbol },
+      { symbol: stockSymbol, data: responseData },
       { upsert: true }
     );
 
@@ -36,4 +32,4 @@ exports.getNewsAndSentiments = async () => {
     // Return response
     return responseData;
   }
-}
+} 
