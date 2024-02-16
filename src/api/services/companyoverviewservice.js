@@ -5,14 +5,14 @@ const db = require("../utils/db");
 const CompanyOverview = db.CompanyOverview;
 
 const apiUrl = '/query?function=OVERVIEW&symbol=[symbol]';
-const projection = { data: { Symbol: 1, Name: 1, Description: 1, Exchange: 1, Currency: 1, Country: 1, Sector: 1, Industry: 1, MarketCapitalization: 1 } }
+//const projection = { data: { Symbol: 1, Name: 1, Description: 1, Exchange: 1, Currency: 1, Country: 1, Sector: 1, Industry: 1, MarketCapitalization: 1 } }
 
 exports.getCompanyOverview = async (stockSymbol) => {
 
   const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
 
   // Check if data exists in MongoDB
-  const cachedData = await CompanyOverview.findOne({ symbol: stockSymbol }).select(projection);
+  const cachedData = await CompanyOverview.findOne({ symbol: stockSymbol });//.select(projection);
 
   if (cachedData) {
     // If cached data is found in MongoDB, return it
@@ -38,6 +38,7 @@ exports.getCompanyOverview = async (stockSymbol) => {
     console.log("Data saved to MongoDB cache.");
 
     // Return response
-    return project(responseData, projection.data);
+    //return project(responseData, projection.data);
+    return responseData;
   }
 }
