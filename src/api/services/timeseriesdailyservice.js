@@ -5,7 +5,7 @@ const TimeSeriesIntraDay = db.TimeSeriesIntraDay;
 
 const apiUrl = '/query?function=TIME_SERIES_DAILY&symbol=[symbol]';
 
-const apiUrlIntra = '/query?function=TIME_SERIES_INTRADAY&symbol=[symbol]&interval=5min';
+const apiUrlIntra = '/query?function=TIME_SERIES_INTRADAY&symbol=[symbol]&interval=1min';
 
 exports.getDailyTimeSeries = async (stockSymbol) => {
 
