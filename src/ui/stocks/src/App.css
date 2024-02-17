@@ -139,6 +139,7 @@ body{
   border: 1px solid #dee2e6;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+  padding: 5px;
 }
 
 .financialbarchart .nav-tabs, .financialbarchart .tab-content{
@@ -191,4 +192,61 @@ body{
   border-top: 16px solid #3498db;
   width: 60px;
   height: 60px;
+}
+
+.company .card {
+  width: 100%;
+  border: none;
+}
+
+.company .card-img {
+  width: 15%;
+  height: 40%;
+  margin: 0.2rem 1rem 0rem 1rem;
+}
+
+.company .card-title, .company .card-subtitle {
+  font-size: 1.5rem;
+  color: #545b62;
+}
+
+.stocksline{
+  width: 100%;
+  height: 350px;
+  border: 1px solid #dee2e6;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.bg-color-green{
+  background-color: #00b386;
+
+}
+
+.details .section-title {
+  margin-bottom: 2px;;
+}
+
+.companydesc{
+  display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.text > div {
+  display: inline;
+  padding-right: 10px;
+}
+
+.text a {
+  position: absolute;
+}
+
+.fundamentalstable{
+  border: none;
+}
+
+.gray-text-color{
+color: #545b62;
 }

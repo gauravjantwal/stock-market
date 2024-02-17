@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 const Financial_barchart = (props) => {
-  useEffect(() => {}, [props.data]);
+
   const data = props.data;
+  const report = props.report;
   const height = 300;
   const barchartoptions = {
     plugins: {
@@ -19,11 +20,11 @@ const Financial_barchart = (props) => {
       },
       title: {
         display: true,
-        text: 'All values are in Rs. Cr',
-        align: "end"
+        text: "All values are in $. Millions",
+        align: "end",
       },
       legend: {
-        display: false
+        display: false,
       },
     },
     maintainAspectRatio: false,
@@ -43,10 +44,10 @@ const Financial_barchart = (props) => {
   };
 
   const barchartdata = {
-    labels: data.labels,
+    labels: report == 1 ? data?.quarterlylabels : data?.annuallabels,
     datasets: [
       {
-        data: data.values,
+        data: report == 1 ? data?.data?.quarterly : data?.data?.annual ,
         backgroundColor: ["#00b386"],
         borderColor: ["green"],
         barThickness: 30,
@@ -55,19 +56,16 @@ const Financial_barchart = (props) => {
   };
   return (
     <>
-      <div>
-        {/* <div className="float-right mr-2 section-title">
-          All values are in Rs. Cr
-        </div> */}
-      </div>
-      <div className="financialbar">
-        <Bar
-          data={barchartdata}
-          plugins={[ChartDataLabels]}
-          height={height}
-          options={barchartoptions}
-        />
-      </div>
+      {props.data && (
+        <div className="financialbar">
+          <Bar
+            data={barchartdata}
+            plugins={[ChartDataLabels]}
+            height={height}
+            options={barchartoptions}
+          />
+        </div>
+      )}
     </>
   );
 };
