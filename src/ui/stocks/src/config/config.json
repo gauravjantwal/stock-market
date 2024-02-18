@@ -1,5 +1,5 @@
 {
   "detailsOverviewEndpoint": "http://localhost:8001/company/{COMPANYCODE}/overview",
   "IncomestatementEndPoint": "http://localhost:8001/company/{COMPANYCODE}/incomestatement",
-  "IntradayEndpoint": "http://localhost:8001/company/{COMPANYCODE}/overview"
+  "IntradayEndpoint": "http://localhost:8001/timeseries/{COMPANYCODE}/intraday"
 }
