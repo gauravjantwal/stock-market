@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 const Menu = () => {
   const user = useSelector(state => state.authInformation.user);
-  debugger;
   return (
     <div className="collapse navbar-collapse mt-3" id="collapsibleNavbar">
       <ul className="navbar-nav">

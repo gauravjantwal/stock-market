@@ -99,7 +99,30 @@ Use following commands to setup nodejs project:
 * Format: JSON
 * Response : This API returns current and 20+ years of historical intraday OHLCV time series of the equity
 
-### 11. Top Gainers And Loosers
+### 11. IntraDay stocks Updates
+* Path: `/intraday/:stocksymbols/updates`
+    * `:stocksymbols`: one or more stock symbol separated by comma `,`, e.g. `/intraday/IBM/updates` or `/intraday/IBM,MSFT/updates`
+* Format: JSON
+* Response : This API returns the latest update on the stock
+    * JSON:
+      ```
+      {
+         {
+	  "symbol": "IBM",
+	  "data": {
+	    "Time Series (1min)": {
+	      "2024-02-15 19:55:00": {
+	        "1. open": "186.6700",
+	        "2. high": "187.0000",
+	        "3. low": "186.6600",
+	        "4. close": "187.0000",
+	        "5. volume": "140"
+	      }
+         }
+      }
+      ```
+
+### 12. Top Gainers And Loosers
 * Path: `/top/gainers/loosers/traded`
 * Format: JSON
 * Response : This endpoint returns the top 20 gainers, losers, and the most active traded tickers in the US market.

@@ -54,6 +54,10 @@ module.exports = (router) => {
     param("stocksymbol", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3, max: 10 })
   ], timeSeriesController.getIntradayTimeSeries);
 
+  router.get("/intraday/:stocksymbols/updates", [
+    param("stocksymbols", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3 })
+  ], timeSeriesController.getIntradayStocksUpdate);
+
   router.get("/top/gainers/loosers/traded", topGainerAndLooserController.getTopGainerLooserAndTraded);
 
   router.post("/user/signup", limitApiRate(5, 15), [
