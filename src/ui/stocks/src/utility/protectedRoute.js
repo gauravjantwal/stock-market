@@ -1,12 +1,13 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Login from '../pages/login';
 
-function ProtectedRoute({ element: Element, ...rest }) {
+const ProtectedRoute = () => {
+  debugger
     const user = useSelector(state => state.authInformation.user);
-
-    return user ? <Route {...rest} element={<Element />} /> : <Login/>;
-}
-
+  return (
+    user ? <Outlet/> : <Navigate to='/login'/>
+    )
+  }
 export default ProtectedRoute;
