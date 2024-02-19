@@ -43,11 +43,11 @@ const Menu = () => {
                 Login
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink activeclassName="active" className="nav-link" to="/signup">
                 Sign Up
               </NavLink>
-            </li>
+            </li> */}
           </>
         ) : (
           <li className="nav-item">
