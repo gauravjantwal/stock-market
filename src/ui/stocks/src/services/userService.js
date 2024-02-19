@@ -8,7 +8,6 @@ const authConfig = {
 
   async function loadUserFromStorage(store) {
     try {
-      debugger
       if(store){
         const userData = JSON.parse(localStorage.getItem('userData'));
       if (!userData) {
