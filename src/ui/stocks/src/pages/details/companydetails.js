@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
-import defualtlogo from '../Images/default.png'
+import defualtlogo from '../component/dashboard/Images/default.png'
 
 function CompanyDetails(props) {
   const OverView = props.OverView;
