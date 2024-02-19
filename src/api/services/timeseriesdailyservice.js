@@ -67,3 +67,28 @@ exports.getIntradayTimeSeries = async (stockSymbol) => {
     return responseData;
   }
 }
+
+exports.intradayStocksUpdate = async (stockSymbols) => {
+  var apiResponse = [];
+
+  var cachedData = await TimeSeriesIntraDay.find({ symbol: { $in: stockSymbols } });
+
+  const cachedSymbols = cachedData.map(item => { return item["symbol"]; });
+  const nonCachedSymbols = stockSymbols.filter(x => { return cachedSymbols.indexOf(x) < 0; })
+
+  for (var i = 0; i < nonCachedSymbols.length; i++) {
+    var symbol = nonCachedSymbols[i];
+    var response = await aAService.get(apiUrlIntra.replace("[symbol]", symbol));
+    var responseData = response.data;
+
+    // Save response data to MongoDB
+    await TimeSeriesIntraDay.findOneAndUpdate(
+      { symbol: symbol },
+      { symbol: symbol, data: responseData },
+      { upsert: true }
+    );
+    cachedData.push({ symbol: symbol, data: responseData });
+  }
+
+  return cachedData;
+}
