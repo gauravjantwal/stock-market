@@ -36,14 +36,14 @@
     transform: rotate(360deg);
   }
 }
-
+ 
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
   background-color: #ECFFDC
 }
 .card-img {
-  width: 20%;
-  height: 20%;
-  margin: 0.2rem 1rem 1rem 1rem;
+  width: 28%;
+  height: 33%;
+  border: 1px solid gainsboro;
 }
 .stocks{
   width: 172px;
@@ -64,13 +64,13 @@
 .coln{
   margin-top: 0.5rem;
 }
-
-
+ 
+ 
 body{
   font-size: 16px;
     font-weight: 600;
 }
-
+ 
  .navbar-brand, .navbar-brand a:hover  {
   color: #5cd578 !important;
 }
@@ -80,42 +80,71 @@ body{
 .nav-link {
   color: #495057;
 }
-
+ 
 .nav-link.active {
   color: #5cd578;
 }
-
+ 
 .text-color-green{
     color: #5cd578;
-  
+ 
+}
+.text-color-red{
+ color: crimson;
+ 
 }
 .section-title{
   color: #545b62;
+  margin-left: 0.5rem;
 }
-
+ 
 .m-15{
   margin: 15px;
 }
-
+ 
 .card-body {
+  flex: 1 1 auto;
+  padding: 0.7rem;
+  height: 12rem;
+}
+
+.card-body_index {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 0.7rem;
 }
-
+ 
 .indexsection .card-title{
   color: #545b62;
 }
-
+ 
 .logo {
   width: 65px;
   height: 50px;
 }
-
+ 
 .section{
   margin-bottom: 5px;
 }
-
+ 
 .section2 .card-title{
   color: #545b62;
+}
+
+.col-md-4{
+  width: 230px;
+  height: 172px;
+}
+
+.card{
+  margin: 1rem;
+  width: 230px;
+
+}
+.dashboard {
+  display: flex;
+}
+
+.text{
+  margin-top: 2rem;
 }

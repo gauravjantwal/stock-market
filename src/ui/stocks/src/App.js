@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import {Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/component/dashboard/dashboard";
 import About from "./pages/about";
 import watchList from "./pages/watchList";
 import IPO from "./pages/ipo";
