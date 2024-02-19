@@ -69,7 +69,6 @@ exports.getIntradayTimeSeries = async (stockSymbol) => {
 }
 
 exports.intradayStocksUpdate = async (stockSymbols) => {
-  var apiResponse = [];
 
   var cachedData = await TimeSeriesIntraDay.find({ symbol: { $in: stockSymbols } });
 
