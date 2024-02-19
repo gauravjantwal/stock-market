@@ -56,8 +56,8 @@ function App() {
             <Route path="/watchlist" element={<ProtectedRoute element={watchList} />} />
             <Route path="/about" Component={About} />
             <Route path="/details">
-              <Route path=":id" Component={WatchListDetailsPage}></Route>
-              <Route path=":name" Component={WatchListDetailsPage}></Route>
+              <Route path="/details:id" Component={WatchListDetailsPage}></Route>
+              <Route path="/details:name" Component={WatchListDetailsPage}></Route>
             </Route> 
           </Routes>
         </div>
