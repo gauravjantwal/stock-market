@@ -72,17 +72,17 @@ body{
 }
  
  .navbar-brand, .navbar-brand a:hover  {
-  color: #5cd578 !important;
+  color: #00b386 !important;
 }
 .navbar-brand {
-  color: #5cd578;
+  color: #00b386;
 }
 .nav-link {
   color: #495057;
 }
  
 .nav-link.active {
-  color: #5cd578;
+  color: #00b386;
 }
  
 .text-color-green{

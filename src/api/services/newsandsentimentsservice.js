@@ -1,43 +1,43 @@
-const axios = require("axios");
-const config = require("../config/config.json");
-const NewsAndSentiments = require("../models/newsandsentiments");
+const aAService = require("./alphaAdvantageService");
+const { BadRequestError, NotFoundError } = require("../models/errors");
+const db = require("../utils/db");
+const NewsAndSentiments = db.NewsAndSentiments;
 
-const apiUrl = `${config.baseURL}/query?function=NEWS_SENTIMENT&apikey=F4NKYN0O04SNXFUQ`;
+const getAllNewsAndSentimentsApiUrl = 'query?function=NEWS_SENTIMENT';
+const getNewsAndSentimentForSymbolApiUrl = 'query?function=NEWS_SENTIMENT&tickers=[symbol]';
 
-class NewsAndSentimentsService {
-  async getNewsAndSentiments() {
-    try {
-      // Check if data exists in MongoDB
-      const cachedData = await NewsAndSentiments.findOne({ key: apiUrl });
+exports.getNewsAndSentimentForSymbol = async (stockSymbol) => {
 
-      if (cachedData) {
-        // If cached data is found in MongoDB, return it
-        console.log("Data found in MongoDB cache.");
-        return cachedData.data;
-      } else {
-        console.log("If no cached data found, fetch from API");
-        // If no cached data found in MongoDB, fetch from API
-        const response = await axios.get(apiUrl);
-        const responseData = response.data;
+  var replacedApiUrl = '';
+  if (stockSymbol) {
+    replacedApiUrl = getNewsAndSentimentForSymbolApiUrl.replace("[symbol]", stockSymbol);
+  } else {
+    replacedApiUrl = getAllNewsAndSentimentsApiUrl;
+  }
 
-        // Save response data to MongoDB with the API URL as key
-        await NewsAndSentiments.findOneAndUpdate(
-          { key: apiUrl },
-          { key: apiUrl, data: responseData },
-          { upsert: true }
-        );
+  // Check if data exists in MongoDB
+  const cachedData = await NewsAndSentiments.findOne({ key: replacedApiUrl });
 
-        console.log("Data saved to MongoDB cache.");
+  if (cachedData) {
+    // If cached data is found in MongoDB, return it
+    return cachedData.data;
+  } else {
+    // If no cached data found in MongoDB, fetch from API
+    const response = await aAService.get(replacedApiUrl);
+    const responseData = response.data;
 
-        // Return response
-        return responseData;
-      }
-    } catch (error) {
-      // Handle error
-      console.error("Error:", error);
-      throw new Error("Internal server error");
+    if (!responseData) {
+      throw new NotFoundError("News not found.");
     }
+
+    // Save response data to MongoDB with the API URL as key
+    await NewsAndSentiments.findOneAndUpdate(
+      { key: replacedApiUrl },
+      { key: replacedApiUrl, data: responseData },
+      { upsert: true }
+    );
+
+    // Return response
+    return responseData;
   }
 }
-
-module.exports = new NewsAndSentimentsService();

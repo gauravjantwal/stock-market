@@ -1,45 +1,94 @@
-const axios = require("axios");
-const config = require("../config/config.json");
-const TimeSeriesDaily = require("../models/timeseriesdaily");
+const aAService = require("./alphaAdvantageService");
+const db = require('../utils/db');
+const TimeSeriesDaily = db.TimeSeriesDaily;
+const TimeSeriesIntraDay = db.TimeSeriesIntraDay;
 
-const apiUrl = `${config.baseURL}/query?function=TIME_SERIES_DAILY&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ`;
+const apiUrl = '/query?function=TIME_SERIES_DAILY&symbol=[symbol]';
 
-class TimeSeriesDailyService {
-  async getTimeSeriesDaily(stockSymbol) {
-    try {
-      const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
+const apiUrlIntra = '/query?function=TIME_SERIES_INTRADAY&symbol=[symbol]&interval=1min';
 
-      // Check if data exists in MongoDB
-      const cachedData = await TimeSeriesDaily.findOne({ symbol: stockSymbol });
+exports.getDailyTimeSeries = async (stockSymbol) => {
 
-      if (cachedData) {
-        // If cached data is found in MongoDB, return it
-        console.log("Data found in MongoDB cache.");
-        return cachedData.data;
-      } else {
-        console.log("If no cached data found, fetch from API");
-        // If no cached data found in MongoDB, fetch from API
-        const response = await axios.get(replacedApiUrl);
-        const responseData = response.data;
+  const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
 
-        // Save response data to MongoDB
-        await TimeSeriesDaily.findOneAndUpdate(
-          { symbol: stockSymbol },
-          { symbol: stockSymbol, data: responseData },
-          { upsert: true }
-        );
+  // Check if data exists in MongoDB
+  const cachedData = await TimeSeriesDaily.findOne({ symbol: stockSymbol });
 
-        console.log("Data saved to MongoDB cache.");
+  if (cachedData) {
+    // If cached data is found in MongoDB, return it
+    console.log("Data found in MongoDB cache.");
+    return cachedData.data;
+  } else {
+    console.log("If no cached data found, fetch from API");
+    // If no cached data found in MongoDB, fetch from API
+    const response = await aAService.get(replacedApiUrl);
+    const responseData = response.data;
 
-        // Return response
-        return responseData;
-      }
-    } catch (error) {
-      // Handle error
-      console.error("Error:", error);
-      throw new Error("Internal server error");
-    }
+    // Save response data to MongoDB
+    await TimeSeriesDaily.findOneAndUpdate(
+      { symbol: stockSymbol },
+      { symbol: stockSymbol, data: responseData },
+      { upsert: true }
+    );
+
+    console.log("Data saved to MongoDB cache.");
+
+    // Return response
+    return responseData;
+  }
+};
+
+exports.getIntradayTimeSeries = async (stockSymbol) => {
+  const replacedApiUrl1 = apiUrlIntra.replace("[symbol]", stockSymbol);
+
+  // Check if data exists in MongoDB
+  const cachedData = await TimeSeriesIntraDay.findOne({ symbol: stockSymbol });
+
+  if (cachedData) {
+    // If cached data is found in MongoDB, return it
+    console.log("Data found in MongoDB cache.");
+    return cachedData.data;
+  } else {
+    console.log("If no cached data found, fetch from API");
+    // If no cached data found in MongoDB, fetch from API
+    const response = await aAService.get(replacedApiUrl1);
+    const responseData = response.data;
+
+    // Save response data to MongoDB
+    await TimeSeriesIntraDay.findOneAndUpdate(
+      { symbol: stockSymbol },
+      { symbol: stockSymbol, data: responseData },
+      { upsert: true }
+    );
+
+    console.log("Data saved to MongoDB cache.");
+
+    // Return response
+    return responseData;
   }
 }
 
-module.exports = new TimeSeriesDailyService();
+exports.intradayStocksUpdate = async (stockSymbols) => {
+  var apiResponse = [];
+
+  var cachedData = await TimeSeriesIntraDay.find({ symbol: { $in: stockSymbols } });
+
+  const cachedSymbols = cachedData.map(item => { return item["symbol"]; });
+  const nonCachedSymbols = stockSymbols.filter(x => { return cachedSymbols.indexOf(x) < 0; })
+
+  for (var i = 0; i < nonCachedSymbols.length; i++) {
+    var symbol = nonCachedSymbols[i];
+    var response = await aAService.get(apiUrlIntra.replace("[symbol]", symbol));
+    var responseData = response.data;
+
+    // Save response data to MongoDB
+    await TimeSeriesIntraDay.findOneAndUpdate(
+      { symbol: symbol },
+      { symbol: symbol, data: responseData },
+      { upsert: true }
+    );
+    cachedData.push({ symbol: symbol, data: responseData });
+  }
+
+  return cachedData;
+}

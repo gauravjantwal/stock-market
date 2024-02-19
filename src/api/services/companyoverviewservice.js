@@ -1,45 +1,44 @@
-const axios = require("axios");
-const config = require("../config/config.json");
-const CompanyOverview = require("../models/companyoverview");
+const aAService = require("./alphaAdvantageService");
+const { NotFoundError } = require("../models/errors");
+const { project } = require('../utils/objectHelper');
+const db = require("../utils/db");
+const CompanyOverview = db.CompanyOverview;
 
-const apiUrl = `${config.baseURL}/query?function=OVERVIEW&symbol=[symbol]&apikey=F4NKYN0O04SNXFUQ`;
+const apiUrl = '/query?function=OVERVIEW&symbol=[symbol]';
+//const projection = { data: { Symbol: 1, Name: 1, Description: 1, Exchange: 1, Currency: 1, Country: 1, Sector: 1, Industry: 1, MarketCapitalization: 1 } }
 
-class CompanyOverviewService {
-  async getCompanyOverview(stockSymbol) {
-    try {
-      const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
+exports.getCompanyOverview = async (stockSymbol) => {
 
-      // Check if data exists in MongoDB
-      const cachedData = await CompanyOverview.findOne({ symbol: stockSymbol });
+  const replacedApiUrl = apiUrl.replace("[symbol]", stockSymbol);
 
-      if (cachedData) {
-        // If cached data is found in MongoDB, return it
-        console.log("Data found in MongoDB cache.");
-        return cachedData.data;
-      } else {
-        console.log("If no cached data found, fetch from API");
-        // If no cached data found in MongoDB, fetch from API
-        const response = await axios.get(replacedApiUrl);
-        const responseData = response.data;
+  // Check if data exists in MongoDB
+  const cachedData = await CompanyOverview.findOne({ symbol: stockSymbol });//.select(projection);
 
-        // Save response data to MongoDB
-        await CompanyOverview.findOneAndUpdate(
-          { symbol: stockSymbol },
-          { symbol: stockSymbol, data: responseData },
-          { upsert: true }
-        );
+  if (cachedData) {
+    // If cached data is found in MongoDB, return it
+    console.log("Data found in MongoDB cache.");
+    return cachedData.data;
+  } else {
+    console.log("If no cached data found, fetch from API");
+    // If no cached data found in MongoDB, fetch from API
+    const response = await aAService.get(replacedApiUrl);
+    const responseData = response.data;
 
-        console.log("Data saved to MongoDB cache.");
-
-        // Return response
-        return responseData;
-      }
-    } catch (error) {
-      // Handle error
-      console.error("Error:", error);
-      throw new Error("Internal server error");
+    if (!responseData) {
+      throw new NotFoundError(`Symbol [${stockSymbol}] not found.`);
     }
+
+    // Save response data to MongoDB
+    await CompanyOverview.findOneAndUpdate(
+      { symbol: stockSymbol },
+      { symbol: stockSymbol, data: responseData },
+      { upsert: true }
+    );
+
+    console.log("Data saved to MongoDB cache.");
+
+    // Return response
+    //return project(responseData, projection.data);
+    return responseData;
   }
 }
-
-module.exports = new CompanyOverviewService();

@@ -1,14 +1,19 @@
+const { validationResult } = require('express-validator');
 const newsAndSentimentsService = require("../services/newsandsentimentsservice");
 
-module.exports = function (router) {
-  router.get("/news/sentiments", async function (req, res) {
-    try {
-      const responseData =
-        await newsAndSentimentsService.getNewsAndSentiments();
-      res.send(responseData);
-    } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Internal server error");
-    }
-  });
+exports.getNewsAndSentiments = async (req, res) => {
+  const responseData = await newsAndSentimentsService.getNewsAndSentimentForSymbol();
+  res.send(responseData);
+};
+
+exports.getNewsAndSentimentForSymbol = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ validationErrors: errors.array() });
+  }
+  
+  const stockSymbol = req.params.stocksymbol;
+  const responseData = await newsAndSentimentsService.getNewsAndSentimentForSymbol(stockSymbol);
+  res.send(responseData);
 };
