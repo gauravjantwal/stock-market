@@ -65,7 +65,7 @@ module.exports = (router) => {
   router.post("/user/signin", [
     check("email", "Please enter a valid email.").isEmail(),
     check("password", "Password should be atleast 6 characters in length and maximum of 20.").isLength({ min: 6, max: 20 })
-  ], limitApiRate(5, 15), userController.postUserSignIn);
+  ], limitApiRate(20, 15), userController.postUserSignIn);
 
   router.get("/user/signout", userController.getUserSignOut);
 

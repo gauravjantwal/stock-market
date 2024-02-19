@@ -5,6 +5,7 @@ import Fundamentals from './fundamentals';
 
 
 const WatchListDetailsPage = () => {
+  debugger
     const {name} = useParams();
     let location = useLocation();
       console.log(location);
