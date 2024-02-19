@@ -17,7 +17,6 @@ import TopGainers from "./TopGainers";
 import TopLosers from "./TopLosers";
 import DashboardIndex from "./dashboardIndex";
 import DashboardCompanies from "./dashboardcompanies";
-// import Dasboardtabssection from "./dasboardtabssection";
 
 const DashboardNew = () => {
   const [post, setData] = useState(null);
@@ -25,7 +24,6 @@ const DashboardNew = () => {
   useEffect(() => {
     let dashboardNews = null;
     let topGainersLosers = null;
-    // let globalMarketStatus = null;
 
     const fetchData = async () => {
       const dashboard = await DashboardService.DashboardNews();
@@ -34,14 +32,9 @@ const DashboardNew = () => {
       const GainersLosers = await DashboardService.TopGainersLosers();
       topGainersLosers = GainersLosers.data;
 
-      /*const globalMarket =  await DashboardService.GlobalMarketStatus();
-          globalMarketStatus = globalMarket.data;
-          console.log(globalMarketStatus);*/
-
       setData({
         DashboardNews: dashboardNews,
         TopGainersLosers: topGainersLosers,
-        // GlobalMarketStatus: globalMarketStatus,
       });
     };
 
@@ -49,14 +42,6 @@ const DashboardNew = () => {
     console.log(post);
   }, []);
 
-  /*useEffect(() => {
-      debugger;
-      axios.get("http://localhost:8001/top/gainers/loosers/traded").then((data) => {
-        debugger;
-        console.log(data);
-        console.log(response);
-      });
-    }, []); */
   return (
     <>
       {post && (
@@ -65,7 +50,7 @@ const DashboardNew = () => {
           <br />
           <TopGainers topgainers={post.TopGainersLosers}></TopGainers>
           <br />
-          <DashboardCompanies name="Most Bought"></DashboardCompanies>
+          <DashboardCompanies mostbought={post.TopGainersLosers}></DashboardCompanies>
           <br />
           <TopLosers toplosers={post.TopGainersLosers}></TopLosers>
           <br />

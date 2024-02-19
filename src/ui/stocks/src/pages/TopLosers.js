@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Row, Col } from 'react-bootstrap';
-import maruthi from "./Images/maruthi.png";
+import jfs from "./Images/jfs.svg";
 import { NavLink } from "react-router-dom";
 
 
@@ -19,7 +19,7 @@ const TopLosers = (props) => {
             {toplosers.top_losers.map((stock, index) => (
                     <div key={index}>
                             <Col md="12">
-                                <Card.Img src={maruthi} alt={stock.ticker} />
+                                <Card.Img src={jfs} alt={stock.ticker} />
                                 <br />
                                 <NavLink className="card-title text-color"to={`/details/${stock.ticker}`} >{stock.ticker}>{stock.ticker}</NavLink>
                                 <div className="text">

@@ -15,6 +15,7 @@ import AuthProvider from "./utility/authProvider";
 import WatchListDetailsPage from "./pages/watchlist-details-page";
 import Signup from "./pages/signup";
 import WatchList from "./pages/watchList";
+import Dashboard from "./pages/dashboard";
 
 function App() {
 

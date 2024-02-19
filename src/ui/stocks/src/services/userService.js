@@ -1,8 +1,9 @@
 import { storeUserError, storeUser} from './../slices/authSlice';
+import config from "../config/config.json";
 
 const authConfig = {
-    loginEndpoint: process.env.REACT_APP_LOGIN_ENDPOINT,
-    registerEndpoint: process.env.REACT_APP_SIGNUP_ENDPOINT,
+    loginEndpoint: config.REACT_APP_LOGIN_ENDPOINT,
+    registerEndpoint: config.REACT_APP_SIGNUP_ENDPOINT,
     // Add any other configuration properties you need
   };
 
