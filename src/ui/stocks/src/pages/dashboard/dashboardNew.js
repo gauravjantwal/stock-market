@@ -1,17 +1,7 @@
 import { Link } from "react-router-dom";
-import tata from "./Images/tata-logo.png";
-import airtel from "./Images/Airtel1.png";
-import coalindia from "./Images/Coal-India.png";
-import IOCL from "./Images/IOCL.png";
-import jfs from "./Images/jfs.svg";
-import maruthi from "./Images/maruthi.png";
-import nykaa from "./Images/Nykaa.svg";
-import sbi from "./Images/SBI.png";
-import shree from "./Images/shree.png";
-import UPL from "./Images/UPL.png";
 import { React, useEffect, useState } from "react";
 import axios from "axios";
-import * as DashboardService from "../services/dashboardService";
+import * as DashboardService from "../../services/dashboardService";
 import { Card, Row, Col } from "react-bootstrap";
 import TopGainers from "./TopGainers";
 import TopLosers from "./TopLosers";

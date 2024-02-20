@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, Row, Col } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
-import jfs from "./Images/jfs.svg";
+import jfs from "../component/dashboard/Images/jfs.svg";
 
 const MostBought = (props) => {
   const [mostbought, setMostBought] = useState(props.mostbought);

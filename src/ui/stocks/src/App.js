@@ -5,8 +5,7 @@ import store from './store/store';
 import ProtectedRoute from './utility/protectedRoute';
 import { loadUserFromStorage } from './services/userService';
 import {Routes, Route } from "react-router-dom";
-import DashboardNew from "./pages/dashboardNew";
-import Dashboard from "./pages/component/dashboard/dashboard";
+import DashboardNew from "./pages/dashboard/dashboardNew";
 import About from "./pages/about";
 import watchList from "./pages/watchList";
 import Menu from "./layout/menu";
@@ -16,7 +15,6 @@ import AuthProvider from "./utility/authProvider";
 import WatchListDetailsPage from "./pages/watchlist-details-page";
 import Signup from "./pages/signup";
 import WatchList from "./pages/watchList";
-import Dashboard from "./pages/dashboard";
 
 function App() {
 
