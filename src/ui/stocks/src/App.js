@@ -5,9 +5,8 @@ import store from './store/store';
 import ProtectedRoute from './utility/protectedRoute';
 import { loadUserFromStorage } from './services/userService';
 import {Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/dashboard";
+import DashboardNew from "./pages/dashboard/dashboardNew";
 import About from "./pages/about";
-import watchList from "./pages/watchList";
 import Menu from "./layout/menu";
 import logo from './logo.webp';
 import Login from "./pages/login";
@@ -15,6 +14,7 @@ import AuthProvider from "./utility/authProvider";
 import WatchListDetailsPage from "./pages/watchlist-details-page";
 import Signup from "./pages/signup";
 import WatchList from "./pages/watchList";
+import Userlogin from "./pages/userlogin";
 
 function App() {
 
@@ -50,15 +50,14 @@ function App() {
       <div className="container mt-3">
         <div>
           <Routes>
-            <Route path="/signup" Component={Signup} />
-            <Route path="/login" Component={Login} />
-            <Route path="/" Component={Dashboard} />
+          <Route path="/login" Component={Userlogin} />
+            <Route path="/" Component={DashboardNew} />
             <Route element={<ProtectedRoute/>}>
               <Route path='/watchlist' element={<WatchList/>} />
               <Route path="/details" element={<WatchListDetailsPage />}>
               <Route path=":id" element={<WatchListDetailsPage />} />
-              <Route path=":name" element={<WatchListDetailsPage />} />
-            </Route>           
+              <Route path=":name" element={<WatchListDetailsPage />} />       
+            </Route>
             </Route>
             <Route path="/about" Component={About} />            
           </Routes>

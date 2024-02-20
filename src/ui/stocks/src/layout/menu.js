@@ -5,7 +5,6 @@ import { logoutUser } from '../services/userService';
 import store from '../store/store';
 
 const Menu = () => {
-  debugger;
   const user = useSelector(state => state.authInformation.user);
   function logout(){
     logoutUser(store);
@@ -43,11 +42,11 @@ const Menu = () => {
                 Login
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink activeclassName="active" className="nav-link" to="/signup">
                 Sign Up
               </NavLink>
-            </li>
+            </li> */}
           </>
         ) : (
           <li className="nav-item">

@@ -1,5 +1,8 @@
 {
   "detailsOverviewEndpoint": "http://localhost:8001/company/{COMPANYCODE}/overview",
   "IncomestatementEndPoint": "http://localhost:8001/company/{COMPANYCODE}/incomestatement",
-  "IntradayEndpoint": "http://localhost:8001/timeseries/{COMPANYCODE}/intraday"
+  "IntradayEndpoint": "http://localhost:8001/timeseries/{COMPANYCODE}/intraday",
+  "REACT_APP_LOGIN_ENDPOINT" : "http://localhost:8001/user/signin",
+  "REACT_APP_LOGOUT_ENDPOINT" : "http://localhost:44340/",
+  "REACT_APP_SIGNUP_ENDPOINT" : "http://localhost:8001/user/signup"
 }
