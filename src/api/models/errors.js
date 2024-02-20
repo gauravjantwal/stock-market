@@ -18,6 +18,11 @@ class ApplicationError extends ApplicationBaseError {
     }
 }
 
+class AuthorizationError extends ApplicationBaseError {
+    constructor(message, statusCode = 401) {
+        super(message, statusCode);
+    }
+}
 
 class BadRequestError extends ApplicationBaseError {
     constructor(message, statusCode = 400) {
@@ -25,13 +30,13 @@ class BadRequestError extends ApplicationBaseError {
     }
 }
 
-class AuthorizationError extends Error {
-    constructor(message, statusCode = 401) {
+class ExternalApiError extends ApplicationError {
+    constructor(message, statusCode = 503) {
         super(message, statusCode);
     }
 }
 
-class NotFoundError extends Error {
+class NotFoundError extends ApplicationBaseError {
     constructor(message, statusCode = 404) {
         super(message, statusCode);
     }
@@ -41,5 +46,6 @@ module.exports = {
     ApplicationError,
     AuthorizationError,
     BadRequestError,
+    ExternalApiError,
     NotFoundError
 };
