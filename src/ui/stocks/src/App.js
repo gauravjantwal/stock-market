@@ -15,6 +15,7 @@ import AuthProvider from "./utility/authProvider";
 import WatchListDetailsPage from "./pages/watchlist-details-page";
 import Signup from "./pages/signup";
 import WatchList from "./pages/watchList";
+import Userlogin from "./pages/userlogin";
 
 function App() {
 
@@ -50,8 +51,7 @@ function App() {
       <div className="container mt-3">
         <div>
           <Routes>
-            <Route path="/signup" Component={Signup} />
-            <Route path="/login" Component={Login} />
+            <Route path="/login" Component={Userlogin} />
             <Route path="/" Component={Dashboard} />
             <Route element={<ProtectedRoute/>}>
               <Route path='/watchlist' element={<WatchList/>} />
