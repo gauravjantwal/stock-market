@@ -50,13 +50,11 @@ function App() {
       <div className="container mt-3">
         <div>
           <Routes>
-            <Route path="/signup" Component={Signup} />
-            <Route path="/login" Component={Login} />
+          <Route path="/login" Component={Userlogin} />
             <Route path="/" Component={DashboardNew} />
             <Route element={<ProtectedRoute/>}>
               <Route path='/watchlist' element={<WatchList/>} />
-            </Route>    
-            <Route path="/details" element={<WatchListDetailsPage />}>
+              <Route path="/details" element={<WatchListDetailsPage />}/>
               <Route path=":id" element={<WatchListDetailsPage />} />
               <Route path=":name" element={<WatchListDetailsPage />} />       
             </Route>
