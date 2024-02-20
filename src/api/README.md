@@ -60,22 +60,22 @@ Use following commands to setup nodejs project:
 
 
 ### 3. Time Series Daily
-* Path: `/timeseries/IBM/daily`
+* Path: `/timeseries/:stocksymbol/daily`
 * Format: JSON
 * Response : This API returns All Daily Prices (open, high, low, close) and Volumes
 
 ### 4. Balance Sheet
-* Path: `/company/IBM/balancesheet`
+* Path: `/company/:stocksymbol/balancesheet`
 * Format: JSON
 * Response : This API returns the annual and quarterly balance sheets for the company of interest
 
 ### 5. Company Overview
-* Path: `/company/IBM/overview`
+* Path: `/company/:stocksymbol/overview`
 * Format: JSON
 * Response : This API returns the company information, financial ratios, and other key metrics for the equity specified
 
 ### 6. Income Statement
-* Path: `/company/IBM/incomestatement`
+* Path: `/company/:stocksymbol/incomestatement`
 * Format: JSON
 * Response : This API returns the annual and quarterly income statements for the company
 
@@ -90,7 +90,7 @@ Use following commands to setup nodejs project:
 * Response : This API returns live and historical market news & sentiment data
 
 ### 9. Ticker Search
-* Path: `/ticker/IBM/search`
+* Path: `/ticker/:stocksymbol/search`
 * Format: JSON
 * Response : This API returns the best-matching symbols and market information based on keywords of your choice
 
@@ -99,28 +99,38 @@ Use following commands to setup nodejs project:
 * Format: JSON
 * Response : This API returns current and 20+ years of historical intraday OHLCV time series of the equity
 
-### 11. IntraDay stocks Updates
+### 11. IntraDay stocks updates
 * Path: `/intraday/:stocksymbols/updates`
-    * `:stocksymbols`: one or more stock symbol separated by comma `,`, e.g. `/intraday/IBM/updates` or `/intraday/IBM,MSFT/updates`
-* Format: JSON
-* Response : This API returns the latest update on the stock
-    * JSON:
+* Rate Limit: N/A
+* Route:
+    * `:stocksymbols`: one or more stock symbol separated by comma `,`.
+	
+		e.g.
+			
+			1. `/intraday/IBM/updates`
+			2. `/intraday/IBM,MSFT/updates`
+* Response:
+	* CODE: 200 - JSON
+	    ```
+		{
+			{
+				"symbol": "IBM",
+				"data": {
+					"Time Series (1min)": {
+					"2024-02-15 19:55:00": {
+						"1. open": "186.6700",
+						"2. high": "187.0000",
+						"3. low": "186.6600",
+						"4. close": "187.0000",
+						"5. volume": "140"
+						}
+					}
+				}
+			}
+	  	}
       ```
-      {
-         {
-	  "symbol": "IBM",
-	  "data": {
-	    "Time Series (1min)": {
-	      "2024-02-15 19:55:00": {
-	        "1. open": "186.6700",
-	        "2. high": "187.0000",
-	        "3. low": "186.6600",
-	        "4. close": "187.0000",
-	        "5. volume": "140"
-	      }
-         }
-      }
-      ```
+ 	* CODE: 400 - Bad Request (with message)
+  	* CODE: 500 - Some unexpected error
 
 ### 12. Top Gainers And Loosers
 * Path: `/top/gainers/loosers/traded`
