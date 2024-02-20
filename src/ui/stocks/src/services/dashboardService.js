@@ -8,7 +8,6 @@ import axios from "axios";
 };*/
 
 export async function DashboardNews() {
-  debugger;
   try {
     const response = await axios.get(
       "http://localhost:8001/news/sentiments");

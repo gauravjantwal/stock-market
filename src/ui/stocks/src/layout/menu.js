@@ -5,7 +5,6 @@ import { logoutUser } from '../services/userService';
 import store from '../store/store';
 
 const Menu = () => {
-  debugger;
   const user = useSelector(state => state.authInformation.user);
   function logout(){
     logoutUser(store);
