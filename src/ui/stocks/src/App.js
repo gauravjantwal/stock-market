@@ -7,7 +7,6 @@ import { loadUserFromStorage } from './services/userService';
 import {Routes, Route } from "react-router-dom";
 import DashboardNew from "./pages/dashboard/dashboardNew";
 import About from "./pages/about";
-import watchList from "./pages/watchList";
 import Menu from "./layout/menu";
 import logo from './logo.webp';
 import Login from "./pages/login";
@@ -15,6 +14,7 @@ import AuthProvider from "./utility/authProvider";
 import WatchListDetailsPage from "./pages/watchlist-details-page";
 import Signup from "./pages/signup";
 import WatchList from "./pages/watchList";
+import Userlogin from "./pages/userlogin";
 
 function App() {
 

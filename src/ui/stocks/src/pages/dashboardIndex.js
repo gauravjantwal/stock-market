@@ -12,7 +12,7 @@ function DashboardIndex() {
       <div className="row indexsection">
         <div className="col-md-3">
           <div className="card">
-            <div className="card-body_index">
+            <div className="card-body">
               <h6 className="card-title section-title">NIFTY50</h6>
               <p className="card-text">
                 <span>20,34.345</span>{" "}
@@ -23,7 +23,7 @@ function DashboardIndex() {
         </div>
         <div className="col-md-3">
           <div className="card">
-            <div className="card-body_index">
+            <div className="card-body">
               <h6 className="card-title section-title">NIFTY50</h6>
               <p className="card-text">
                 <span>20,34.345</span>{" "}
@@ -34,7 +34,7 @@ function DashboardIndex() {
         </div>
         <div className="col-md-3">
           <div className="card">
-            <div className="card-body_index">
+            <div className="card-body">
               <h6 className="card-title">SENSEX</h6>
               <p className="card-text">
                 <span>20,34.345</span>{" "}
@@ -45,7 +45,7 @@ function DashboardIndex() {
         </div>
         <div className="col-md-3">
           <div className="card">
-            <div className="card-body_index">
+            <div className="card-body">
               <h6 className="card-title">BANKNIFTY</h6>
               <p className="card-text">
                 <span>20,34.345</span>{" "}
