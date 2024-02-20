@@ -54,9 +54,10 @@ function App() {
             <Route path="/" Component={DashboardNew} />
             <Route element={<ProtectedRoute/>}>
               <Route path='/watchlist' element={<WatchList/>} />
-              <Route path="/details" element={<WatchListDetailsPage />}/>
+              <Route path="/details" element={<WatchListDetailsPage />}>
               <Route path=":id" element={<WatchListDetailsPage />} />
               <Route path=":name" element={<WatchListDetailsPage />} />       
+            </Route>
             </Route>
             <Route path="/about" Component={About} />            
           </Routes>
