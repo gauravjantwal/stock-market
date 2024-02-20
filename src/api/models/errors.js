@@ -1,12 +1,23 @@
 class ApplicationBaseError extends Error {
     statusCode;
 
-    constructor(message, statusCode = 400) {
+    constructor(message, statusCode) {
         super(message);
 
         this.statusCode = statusCode;
     }
 }
+
+class ApplicationError extends ApplicationBaseError {
+    statusCode;
+
+    constructor(message, statusCode = 500) {
+        super(message);
+
+        this.statusCode = statusCode;
+    }
+}
+
 
 class BadRequestError extends ApplicationBaseError {
     constructor(message, statusCode = 400) {
@@ -27,6 +38,7 @@ class NotFoundError extends Error {
 }
 
 module.exports = {
+    ApplicationError,
     AuthorizationError,
     BadRequestError,
     NotFoundError
