@@ -24,38 +24,38 @@ module.exports = (router) => {
   });
 
   router.get("/company/:stocksymbol/balancesheet", [
-    param("stocksymbol", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3, max: 10 })
+    param("stocksymbol", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], companyBalancesheetController.getCompanyBalancesheet);
 
   router.get("/company/:stocksymbol/overview", [
-    param("stocksymbol", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3, max: 10 })
+    param("stocksymbol", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], companyOverviewController.getCompanyOverview);
 
   router.get("/company/:stocksymbol/incomestatement", [
-    param("stocksymbol", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3, max: 10 })
+    param("stocksymbol", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], incomeStatementController.getCompanyIncomeStatement);
 
   router.get("/company/:stocksymbol/news/sentiments", [
-    param("stocksymbol", "Symbol should be of atlest 3 characters and maximum of 10.").isLength({ min: 3, max: 10 })
+    param("stocksymbol", "Symbol should be of atlest 1 characters and maximum of 10.").isLength({ min: 1, max: 10 })
   ], newsAndSentimentsController.getNewsAndSentimentForSymbol);
 
   router.get("/news/sentiments", newsAndSentimentsController.getNewsAndSentiments);
   router.get("/globalmarket/status", globalMarketStatusController.getGlobalMarketStatus);
 
   router.get("/ticker/:stocksymbol/search", [
-    param("stocksymbol", "Symbol should be of atlest 3 characters and maximum of 10.").isLength({ min: 3, max: 10 })
+    param("stocksymbol", "Symbol should be of atlest 1 characters and maximum of 10.").isLength({ min: 1, max: 10 })
   ], tickerSearchController.getTickerSearch);
 
   router.get("/timeseries/:stocksymbol/daily", [
-    param("stocksymbol", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3, max: 10 })
+    param("stocksymbol", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], timeSeriesController.getDailyTimeSeries);
 
   router.get("/timeseries/:stocksymbol/intraday", [
-    param("stocksymbol", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3, max: 10 })
+    param("stocksymbol", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], timeSeriesController.getIntradayTimeSeries);
 
   router.get("/intraday/:stocksymbols/updates", [
-    param("stocksymbols", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3 })
+    param("stocksymbols", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], timeSeriesController.getIntradayStocksUpdate);
 
   router.get("/top/gainers/loosers/traded", topGainerAndLooserController.getTopGainerLooserAndTraded);
@@ -99,11 +99,11 @@ module.exports = (router) => {
 
   router.post("/watchlist/:id/bookmark", authorize, limitApiRate(5, 15), authorize, [
     param("id", "Id should be of 24 characters.").isLength({ min: 24, max: 24 }),
-    check("stocksymbol", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3, max: 10 })
+    check("stocksymbol", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], watchlistController.postWatchlistBookmark);
 
   router.delete("/watchlist/:id/bookmark/:stocksymbol", authorize, limitApiRate(5, 15), authorize, [
     param("id", "Id should be of 24 characters.").isLength({ min: 24, max: 24 }),
-    param("stocksymbol", "Symbol should be of atlest 3 characters and maximum 10.").isLength({ min: 3, max: 10 })
+    param("stocksymbol", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], watchlistController.deleteWatchlistBookmark);
 };
