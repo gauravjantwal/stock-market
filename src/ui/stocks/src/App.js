@@ -5,7 +5,7 @@ import store from './store/store';
 import ProtectedRoute from './utility/protectedRoute';
 import { loadUserFromStorage } from './services/userService';
 import {Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/component/dashboard/dashboard";
+import Dashboard from "./pages/dashboard";
 import About from "./pages/about";
 import watchList from "./pages/watchList";
 import Menu from "./layout/menu";
