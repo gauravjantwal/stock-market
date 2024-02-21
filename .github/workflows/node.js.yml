@@ -20,14 +20,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - name: Change directory
+      run: cd src/api
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Change directory
-      run: cd src/api
     - name: Install Dependencies
       run: npm install
     - name: Run unit test cases
