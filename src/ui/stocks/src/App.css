@@ -43,7 +43,7 @@
 .card-img {
   width: 20%;
   height: 20%;
-  margin: 0.2rem 1rem 1rem 1rem;
+  margin: 0.2rem 1rem 1rem 0rem;
 }
 .stocks{
   width: 172px;
@@ -100,7 +100,7 @@ body{
 .card-body {
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 0.7rem;
+  padding: 0.5rem;
 }
 
 .indexsection .card-title{
@@ -258,4 +258,15 @@ color: #545b62;
   padding: 10px 20px;
   transition: transform 0.2s;
   width: 50%;
+}
+
+.stocks-card-img {
+  width: 35%;
+  height: 25%;
+  margin: 0.2rem 1rem 1rem 0rem;
+}
+
+a:hover {
+  color: #00b386;
+  text-decoration: underline;
 }

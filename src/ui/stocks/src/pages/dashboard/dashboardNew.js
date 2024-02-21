@@ -7,6 +7,8 @@ import TopGainers from "./TopGainers";
 import TopLosers from "./TopLosers";
 import DashboardIndex from "./dashboardIndex";
 import DashboardCompanies from "./dashboardcompanies";
+import Loader from "../loader";
+import DashboardList from "./dashboard-list";
 
 const DashboardNew = () => {
   const [post, setData] = useState(null);
@@ -29,24 +31,46 @@ const DashboardNew = () => {
     };
 
     fetchData();
-    console.log(post);
   }, []);
 
   return (
-    <>
-      {post && (
-        <div className="clearfix m-15">
-          <DashboardIndex></DashboardIndex>
-          <br />
-          <TopGainers topgainers={post.TopGainersLosers}></TopGainers>
-          <br />
-          <DashboardCompanies mostbought={post.TopGainersLosers}></DashboardCompanies>
-          <br />
-          <TopLosers toplosers={post.TopGainersLosers}></TopLosers>
-          <br />
-        </div>
+    <div className="container">
+      <marquee direction="right">
+        <p className="section-title">MARKET CLOSES AT 3:30 PM</p>
+      </marquee>
+
+      {post ? (
+        <>
+          <div className="clearfix m-15">
+            <DashboardList
+              data={post.TopGainersLosers?.top_gainers}
+              showwatchlist={true}
+              title={"Top Gainers"}
+            ></DashboardList>
+            <DashboardList
+              data={post.TopGainersLosers?.most_actively_traded}
+              title={"Most Bought"}
+            ></DashboardList>
+            <DashboardList
+              data={post.TopGainersLosers?.top_losers}
+              title={"Top Losers"}
+            ></DashboardList>
+          </div>
+        </>
+      ) : (
+        // <div className="clearfix m-15">
+        //   <DashboardIndex></DashboardIndex>
+        //   <br />
+        //   <TopGainers topgainers={post.TopGainersLosers}></TopGainers>
+        //   <br />
+        //   <DashboardCompanies mostbought={post.TopGainersLosers}></DashboardCompanies>
+        //   <br />
+        //   <TopLosers toplosers={post.TopGainersLosers}></TopLosers>
+        //   <br />
+        // </div>
+        <Loader></Loader>
       )}
-    </>
+    </div>
   );
 };
 
