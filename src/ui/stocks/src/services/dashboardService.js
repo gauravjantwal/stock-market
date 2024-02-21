@@ -10,7 +10,8 @@ import axios from "axios";
 export async function DashboardNews() {
   try {
     const response = await axios.get(
-      "http://localhost:8001/news/sentiments");
+      "http://localhost:8001/news/sentiments",
+      { withCredentials: true });
     if (!response.status === 200) {
       throw new Error("Request Failed failed");
     }
@@ -23,7 +24,8 @@ export async function DashboardNews() {
 export async function TopGainersLosers() {
   try {
     const response = await axios.get(
-      "http://localhost:8001/top/gainers/loosers/traded");
+      "http://localhost:8001/top/gainers/loosers/traded",
+      { withCredentials: true });
     if (!response.status === 200) {
       throw new Error("Request Failed failed");
     }
@@ -36,7 +38,8 @@ export async function TopGainersLosers() {
 export async function GlobalMarketStatus() {
   try {
     const response = await axios.get(
-     "http://localhost:8001/globalmarket/status");
+      "http://localhost:8001/globalmarket/status",
+      { withCredentials: true });
     if (!response.status === 200) {
       throw new Error("Request Failed failed");
     }
