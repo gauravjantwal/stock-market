@@ -12,6 +12,8 @@ const { getTickerSearch } = require("../controllers/tickersearchcontroller");
 
 const { getCompanyBalancesheet } = require("../controllers/balancesheetcontroller");
 
+const { getCompanyIncomeStatement } = require("../controllers/incomestatementcontroller");
+
 //mocking the controller
 jest.mock('../controllers/companyoverviewcontroller');
 jest.mock('../controllers/newsandsentimentscontroller');
@@ -19,8 +21,7 @@ jest.mock('../controllers/timeseriescontroller');
 jest.mock('../controllers/topgainerandloosercontroller');
 jest.mock('../controllers/tickersearchcontroller');
 jest.mock('../controllers/balancesheetcontroller');
-
-
+jest.mock('../controllers/incomestatementcontroller');
 
 //Testcase for companyoverviewcontroller
 describe("companyoverviewcontroller", () => {
@@ -205,4 +206,27 @@ describe("balancesheetcontroller", () => {
    });
 
  });
+
+ //Testcase for incomestatementcontroller
+describe("incomestatementcontroller", () => {
+  it("should show up the incomestatementcontroller", async () => {
+
+    // Mocking request and response objects
+    const req = { params: { symbol: "IBM" }};
+  
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+      send: jest.fn(),
+    };
+
+    // Calling the function
+    await getCompanyIncomeStatement(req, res);
+
+    // Assertions
+    expect(getCompanyIncomeStatement).toHaveBeenCalled();
+
+  });
+
+});
 
