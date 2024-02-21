@@ -2,12 +2,22 @@ import React, { useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import jfs from "../Images/jfs.svg";
 import { NavLink } from "react-router-dom";
+import CreateWatchlist from "../watchlists/create-watchlist";
 
 const TopGainers = (props) => {
   debugger;
   const [topgainers, setTopgainers] = useState(props.topgainers);
- 
+  const [showCreateWatchlist, setshowCreateWatchlist] = useState(false);
 
+  const handleClick = () => {
+    setshowCreateWatchlist(true);
+  };
+  //const [isOpen, setIsOpen] = useState(false);
+
+  //const togglePopup = () => {
+   // setIsOpen(!isOpen);
+  //};
+ 
   console.log(props);
   return (
     <div className="section">
@@ -16,7 +26,8 @@ const TopGainers = (props) => {
           <h5 className="section-title">TopGainers</h5>
         </div>
         <div className="col-md-2">
-          <NavLink to={"/watchlist"}>All Watchlists</NavLink>
+          <button onClick={handleClick}>Create Watchlists</button>
+          {showCreateWatchlist && <CreateWatchlist />}
         </div>
         <div className="col-md-2">
           <NavLink to={"/watchlist"}>View All</NavLink>
