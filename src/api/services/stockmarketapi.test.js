@@ -12,7 +12,7 @@ const { getTickerSearch } = require("../controllers/tickersearchcontroller");
 
 const { getCompanyBalancesheet } = require("../controllers/balancesheetcontroller");
 
-
+//mocking the controller
 jest.mock('../controllers/companyoverviewcontroller');
 jest.mock('../controllers/newsandsentimentscontroller');
 jest.mock('../controllers/timeseriescontroller');
