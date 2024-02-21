@@ -55,6 +55,31 @@ describe("UserSignIn", () => {
     });
   
   });
+
+  //SignOut Testcase
+describe("UserSignOut", () => {
+    it("should SignOut the user", async () => {
+  
+      // Mocking request and response objects
+      const req = { params: { email: "test@abc.com" },
+                    params: {password:"test@123"}
+    };
+     
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+        send: jest.fn(),
+      };
+  
+      // Calling the function
+      await getUserSignOut(req, res);
+  
+      // Assertions
+      expect(getUserSignOut).toHaveBeenCalled();
+  
+    });
+  
+  });
   
 
 
