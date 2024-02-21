@@ -17,7 +17,10 @@ require("dotenv").config();
 //use parsing Middleware
 app.use(bodyparse.json())
 app.use(cookieparser())
-app.use(cors())
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3000'
+}))
 
 //Connecting to MongoDB to store session
 const store = new monogoDBSession({

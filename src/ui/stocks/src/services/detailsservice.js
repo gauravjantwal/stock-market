@@ -2,9 +2,9 @@ import axios from "axios";
 import UIConfig from "../config/config.json"
 
 const authConfig = {
-//   detailsOverviewEndpoint: process.env.REACT_APP_DETAILS_OVERVIEW,
-//   IncomestatementEndPoint: process.env.REACT_APP_DETAILS_INCOMESTATEMENT,
-//   IntradayEndpoint: process.env.REACT_APP_DETAILS_INTRADAY,
+  //   detailsOverviewEndpoint: process.env.REACT_APP_DETAILS_OVERVIEW,
+  //   IncomestatementEndPoint: process.env.REACT_APP_DETAILS_INCOMESTATEMENT,
+  //   IntradayEndpoint: process.env.REACT_APP_DETAILS_INTRADAY,
 
   detailsOverviewEndpoint: UIConfig.detailsOverviewEndpoint,
   IncomestatementEndPoint: UIConfig.IncomestatementEndPoint,
@@ -14,7 +14,8 @@ const authConfig = {
 export async function OverView(companycode) {
   try {
     const response = await axios.get(
-      authConfig.detailsOverviewEndpoint.replace("{COMPANYCODE}", companycode)
+      authConfig.detailsOverviewEndpoint.replace("{COMPANYCODE}", companycode),
+      { withCredentials: true }
     );
     if (!response.status === 200) {
       throw new Error("Request Failed failed");
@@ -28,7 +29,8 @@ export async function OverView(companycode) {
 export async function Incomestatement(companycode) {
   try {
     const response = await axios.get(
-      authConfig.IncomestatementEndPoint.replace("{COMPANYCODE}", companycode)
+      authConfig.IncomestatementEndPoint.replace("{COMPANYCODE}", companycode),
+      { withCredentials: true }
     );
     if (!response.status === 200) {
       throw new Error("Request Failed failed");
@@ -42,7 +44,8 @@ export async function Incomestatement(companycode) {
 export async function GetStocksData(companycode) {
   try {
     const response = await axios.get(
-      authConfig.IntradayEndpoint.replace("{COMPANYCODE}", companycode)
+      authConfig.IntradayEndpoint.replace("{COMPANYCODE}", companycode),
+      { withCredentials: true }
     );
     if (!response.status === 200) {
       throw new Error("Request Failed failed");
