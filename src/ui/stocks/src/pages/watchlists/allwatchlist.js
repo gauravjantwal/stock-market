@@ -26,7 +26,7 @@ function Allwatchlist() {
         setwatchlist(getwatchlists);
         if(watchlistid == "")
         {
-          setWatchlistId(getwatchlists[0]._id);
+          setWatchlistId(getwatchlists[0]?._id);
         }
        }
 
@@ -37,7 +37,7 @@ function Allwatchlist() {
         settopgainersdata(topGainersLosers?.top_gainers);
       }  
       
-      const response =  await WatchlistService.GetBookmark(getwatchlists[0]._id);
+      const response =  await WatchlistService.GetBookmark(getwatchlists[0]?._id);
         if(response?.data)
         {
           let result = topgainersdata?.filter(o1 => response?.data.some(o2 => o1.ticker === o2));
