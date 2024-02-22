@@ -30,18 +30,17 @@ function Searchbar(props) {
 
   return (
     <div className="mt-3" >
-      <Form.Group className="row">
+      <Form.Group className="row mr-0">
         <Typeahead className="col-10 w-100"
          // ref={typeaheadRef}
           id="basic-typeahead-multiple"
           labelKey="ticker"
-          multiple
           onChange={setMultiSelections}
           options={options}
           placeholder="Search & Add"
           selected={multiSelections}
         />
-        <button tupe="button"  onClick={(e)=>handleAddToWatchlist(props.id)} className="col-2 btn btn-bg-color-green text-white border-0">Add to WatchList</button>
+        <button tupe="button"  onClick={(e)=>handleAddToWatchlist(props.id)} className="col-2 btn btn-bg-color-green text-white">Add to WatchList</button>
       </Form.Group>
     </div>
   );
