@@ -3,8 +3,8 @@
   "IncomestatementEndPoint": "http://localhost:8001/company/{COMPANYCODE}/incomestatement",
   "IntradayEndpoint": "http://localhost:8001/timeseries/{COMPANYCODE}/intraday",
   "REACT_APP_LOGIN_ENDPOINT" : "http://localhost:8001/user/signin",
-  "REACT_APP_LOGOUT_ENDPOINT" : "http://localhost:44340/",
-  "REACT_APP_SIGNUP_ENDPOINT" : "http://localhost:8001/user/signup",
   "Create_Watchlist" : "http://localhost:8001/watchlist",
-  "Get_Watchlist" : "http://localhost:8001/watchlist"
+  "Get_Watchlist" : "http://localhost:8001/watchlist",
+  "REACT_APP_LOGOUT_ENDPOINT" : "http://localhost:8001/user/signout",
+  "REACT_APP_SIGNUP_ENDPOINT" : "http://localhost:8001/user/signup"
 }

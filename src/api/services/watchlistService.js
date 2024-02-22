@@ -56,9 +56,12 @@ exports.deleteWatchlistById = async (userid, watchlistId) => {
 };
 
 exports.getAllBookmarkByWatchlistId = async (userid, watchlistId) => {
-    const allBookmark = await Watchlists.findOne({ _id: watchlistId, userid: userid }).select(watchlistBookmarkProjection);
+    const watchlist = await Watchlists.findOne({ _id: watchlistId, userid: userid }).select(watchlistBookmarkProjection);
 
-    return allBookmark.bookmarks;
+    if (!watchlist) {
+        throw new NotFoundError('Watchlist not found');
+    }
+    return watchlist.bookmarks;
 }
 exports.createBookmarkByWatchlistId = async (userid, watchlistId, symbol) => {
     await Watchlists.findOneAndUpdate({ _id: watchlistId, userid: userid }, { $addToSet: { bookmarks: symbol } });
