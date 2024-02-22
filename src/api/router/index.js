@@ -73,22 +73,22 @@ module.exports = (router) => {
 
   router.get("/user/signout", userController.getUserSignOut);
 
-  router.get("/watchlist", authorize, limitApiRate(5, 15), watchlistController.getWatchlists);
+  router.get("/watchlist", authorize,  watchlistController.getWatchlists);
 
   router.get("/watchlist/:id", authorize, [
     param("id", "Id should be of 24 characters.").isLength(24)
   ], watchlistController.getWatchlist);
 
-  router.post("/watchlist", authorize, limitApiRate(5, 15), authorize, [
+  router.post("/watchlist", authorize,  authorize, [
     check("name", "Name should be atleast 3 character long and with max length 50.").isLength({ min: 3, max: 50 })
   ], watchlistController.postWatchlist);
 
-  router.put("/watchlist/:id", authorize, limitApiRate(5, 15), authorize, [
+  router.put("/watchlist/:id", authorize,  authorize, [
     param("id", "Id should be of 24 characters.").isLength({ min: 24, max: 24 }),
     check("name", "Name should be atleast 3 character long and with max length 50.").isLength({ min: 3, max: 50 })
   ], watchlistController.putWatchlist);
 
-  router.delete("/watchlist/:id", authorize, limitApiRate(5, 15), authorize, [
+  router.delete("/watchlist/:id", authorize, authorize, [
     param("id", "Id should be of 24 characters.").isLength({ min: 24, max: 24 })
   ], watchlistController.deleteWatchlist);
 
@@ -97,12 +97,12 @@ module.exports = (router) => {
     param("id", "Id should be of 24 characters.").isLength({ min: 24, max: 24 })
   ], watchlistController.getWatchlistBookmarks);
 
-  router.post("/watchlist/:id/bookmark", authorize, limitApiRate(5, 15), authorize, [
+  router.post("/watchlist/:id/bookmark", authorize,  authorize, [
     param("id", "Id should be of 24 characters.").isLength({ min: 24, max: 24 }),
     check("stocksymbol", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], watchlistController.postWatchlistBookmark);
 
-  router.delete("/watchlist/:id/bookmark/:stocksymbol", authorize, limitApiRate(5, 15), authorize, [
+  router.delete("/watchlist/:id/bookmark/:stocksymbol", authorize,  authorize, [
     param("id", "Id should be of 24 characters.").isLength({ min: 24, max: 24 }),
     param("stocksymbol", "Symbol should be of atlest 1 characters and maximum 10.").isLength({ min: 1, max: 10 })
   ], watchlistController.deleteWatchlistBookmark);

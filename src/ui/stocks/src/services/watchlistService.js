@@ -24,7 +24,7 @@ const configuration = {
         body: JSON.stringify({ name }),
       });*/
   
-      if (response.status != 201) {
+      if (response.status !== 201) {
         throw new Error('Watchlist creation failed');
       }
       return true;
@@ -42,7 +42,7 @@ const configuration = {
       });
   
       if (response.status != 200) {
-        throw new Error('Get Watchlist failed');
+       // throw new Error('Get Watchlist failed');
       }
       return response;
     } catch (error) {
@@ -59,8 +59,8 @@ const configuration = {
         withCredentials: true
       });
   
-      if (response.status != 200) {
-        throw new Error('Watchlist creation failed');
+      if (response.status !== 201) {
+        //throw new Error('Watchlist bookmark creation failed');
       }
       return true;
     } catch (error) {
@@ -77,7 +77,7 @@ const configuration = {
       });
   
       if (response.status != 200) {
-        throw new Error('Get bookmark failed');
+       // throw new Error('Get bookmark failed');
       }
       return response;
     } catch (error) {
@@ -95,7 +95,7 @@ const configuration = {
           });
       
           if (response.status != 200) {
-            throw new Error('Delete bookmark failed');
+           // throw new Error('Delete bookmark failed');
           }
           return true;
         } catch (error) {

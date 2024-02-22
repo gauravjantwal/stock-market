@@ -5,13 +5,14 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import * as WatchlistService from "../../services/watchlistService";
 import * as DashboardService from "../../services/dashboardService";
+import * as ToasterService from "../../services/toasterService";
 
 function Allwatchlist() {
   const [topgainersdata, settopgainersdata] = useState(null);
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
   const [watchlist, setwatchlist] = useState(null);
-  const [watchlistid, setWatchlistId] = useState('');
+  const [watchlistid, setWatchlistId] = useState("");
   const[bookmark, setBookmark] = useState([]);
 
   useEffect(() => {
@@ -23,13 +24,9 @@ function Allwatchlist() {
        if(response1?.data)
        {
         setwatchlist(getwatchlists);
-        setWatchlistId(getwatchlists[0]._id);
-        const response =  await WatchlistService.GetBookmark(getwatchlists[0]._id);
-        if(response?.data)
+        if(watchlistid == "")
         {
-          let result = topgainersdata?.filter(o1 => response?.data.some(o2 => o1.ticker === o2));
-          settopgainersdata(topGainersLosers?.top_gainers);
-          setBookmark(result);
+          setWatchlistId(getwatchlists[0]._id);
         }
        }
 
@@ -38,11 +35,25 @@ function Allwatchlist() {
       if(GainersLosers?.data)
       {
         settopgainersdata(topGainersLosers?.top_gainers);
-      }     
+      }  
+      
+      const response =  await WatchlistService.GetBookmark(getwatchlists[0]._id);
+        if(response?.data)
+        {
+          let result = topgainersdata?.filter(o1 => response?.data.some(o2 => o1.ticker === o2));
+          settopgainersdata(topGainersLosers?.top_gainers);
+          setBookmark(result);
+        }
      };
 
      fetchData();
    }, []);
+
+   const updateWatchlist=(data)=>{
+     console.log("test" +data);
+    let result = topgainersdata?.filter(o1 => data.some(o2 => o1.ticker === o2));
+    setBookmark(result); 
+   }
 
   const handleClose = () => {
     setShow(false);
@@ -55,6 +66,7 @@ function Allwatchlist() {
    {
     setShow(false);
     setName('');
+    ToasterService.toastSuccess("Added watchlist succesfully");
    }
   const response1 = await WatchlistService.GetWatchlist();
   setwatchlist(response1?.data);
@@ -72,6 +84,7 @@ function Allwatchlist() {
     const response1 =  await WatchlistService.GetBookmark(watchlistid);
     let result = topgainersdata?.filter(o1 => response1?.data.some(o2 => o1.ticker === o2));
     setBookmark(result);
+    ToasterService.toastSuccess("Deleted bookmark succesfully");
   }
 
   return (
@@ -101,7 +114,8 @@ function Allwatchlist() {
                 ))}
               </div>
               <div>
-                <Searchbar data={topgainersdata} id={watchlistid}></Searchbar>
+                <Searchbar data={topgainersdata} id={watchlistid} 
+                update={updateWatchlist}></Searchbar>
               </div>
               <div className="mt-2 border rounded">
                 <table className="table table-hover ">
