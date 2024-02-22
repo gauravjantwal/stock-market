@@ -41,7 +41,7 @@ function Searchbar(props) {
           placeholder="Search & Add"
           selected={multiSelections}
         />
-        <button tupe="button"  onClick={(e)=>handleAddToWatchlist(props.id)} className="col-2 btn btn-bg-color-green text-white rounded-pill border-0">Add to WatchList</button>
+        <button tupe="button"  onClick={(e)=>handleAddToWatchlist(props.id)} className="col-2 btn btn-bg-color-green text-white border-0">Add to WatchList</button>
       </Form.Group>
     </div>
   );
