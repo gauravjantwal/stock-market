@@ -15,6 +15,8 @@ import WatchListDetailsPage from "./pages/watchlist-details-page";
 import Signup from "./pages/signup";
 import WatchList from "./pages/watchList";
 import Userlogin from "./pages/userlogin";
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from 'react-toastify';
 
 function App() {
 
@@ -63,6 +65,17 @@ function App() {
           </Routes>
         </div>
       </div>
+      <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+pauseOnHover
+theme="light">
+</ToastContainer >
       </AuthProvider>
     </Provider>
   );

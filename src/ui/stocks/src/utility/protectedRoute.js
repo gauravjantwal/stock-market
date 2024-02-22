@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import Login from '../pages/login';
 
 const ProtectedRoute = () => {
-  debugger
     const user = useSelector(state => state.authInformation.user);
   return (
     user ? <Outlet/> : <Navigate to='/login'/>

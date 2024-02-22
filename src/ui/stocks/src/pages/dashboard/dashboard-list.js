@@ -5,13 +5,13 @@ import { NavLink } from "react-router-dom";
 import stockslogo from "../Images/stocks-logo.png";
 
 function DashboardList(props) {
-  const [data, setdata] = useState(props.data);
+  const [data, setdata] = useState(props?.data);
 
   return (
     <div className="section mb-3">
       <div className="row">
         <div className="col-md-9">
-          <h5 className="section-title">{props.title}</h5>
+          <h5 className="section-title">{props?.title}</h5>
         </div>
         {props?.showwatchlist && (
           <div className="col-md-3 ">
@@ -24,7 +24,7 @@ function DashboardList(props) {
       </div>
       <div className="dashboard">
         <div className="row">
-          {data.map((stock, index) => (
+          {data?.map((stock, index) => (
             <div className="col-sm-2 mb-3" key={index}>
               <div className="card">
                 <div className="card-body">
