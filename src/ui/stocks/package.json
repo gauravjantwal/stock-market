@@ -13,6 +13,7 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "env-cmd": "^10.1.0",
     "jquery": "^3.7.1",
+    "js-cookie": "^3.0.5",
     "popper.js": "^1.16.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
