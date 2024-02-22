@@ -53,7 +53,6 @@ function Allwatchlist() {
   }, []);
 
   const updateWatchlist = (data) => {
-    console.log("test" + data);
     let result = topgainersdata?.filter((o1) =>
       data.some((o2) => o1.ticker === o2)
     );
