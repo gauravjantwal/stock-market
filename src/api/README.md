@@ -2,15 +2,15 @@
 
 ## Project Setup
 Prerequisities
-	1. Node.js
-	2. MongoDB
+1. Node.js
+2. MongoDB
 
 Use following commands to setup nodejs project:
-	1. Navigate to `src/api` directory.
-	2. Run `npm i` to install all the dependencies.
-	3. Run `npm start` to run the application
-		* Configuration: config.json
-		* 
+
+1. Navigate to `src/api` directory.
+2. Run `npm i` to install all the dependencies.
+3. Run `npm start` to run the application
+    * Configuration: config.json
 
 ## APIs
 
