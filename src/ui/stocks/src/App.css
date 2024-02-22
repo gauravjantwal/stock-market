@@ -270,3 +270,8 @@ a:hover {
   color: #00b386;
   text-decoration: underline;
 }
+
+.btn-bg-color-green,.btn-bg-color-green:hover {
+  background-color: #00b386;
+  border: #00b386;
+}

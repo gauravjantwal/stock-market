@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ViewWatchList from './view-watchlist';
 import { useNavigate, NavLink } from 'react-router-dom';
+import AllWatchlist from './watchlists/allwatchlist';
 
 const WatchList = () => {
   // Define some sample table data
@@ -27,7 +28,7 @@ const WatchList = () => {
    // history(`/watchlist-details-page/${rowData.id}`);
   };
 
-  return (
+  /*(return (
     <div>
         <h3>All Watchlists</h3><br></br>
         <div className="row">
@@ -68,6 +69,9 @@ const WatchList = () => {
         </div>
     </div>
     </div>
+  );*/
+  return(
+    <AllWatchlist></AllWatchlist>
   );
 };
 

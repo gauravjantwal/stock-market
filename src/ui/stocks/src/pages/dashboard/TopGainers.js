@@ -6,8 +6,17 @@ import { NavLink } from "react-router-dom";
 const TopGainers = (props) => {
   debugger;
   const [topgainers, setTopgainers] = useState(props.topgainers);
- 
+  const [showCreateWatchlist, setshowCreateWatchlist] = useState(false);
 
+  const handleClick = () => {
+    setshowCreateWatchlist(true);
+  };
+  //const [isOpen, setIsOpen] = useState(false);
+
+  //const togglePopup = () => {
+   // setIsOpen(!isOpen);
+  //};
+ 
   console.log(props);
   return (
     <div className="section">
@@ -16,7 +25,7 @@ const TopGainers = (props) => {
           <h5 className="section-title">TopGainers</h5>
         </div>
         <div className="col-md-2">
-          <NavLink to={"/watchlist"}>All Watchlists</NavLink>
+          <button onClick={handleClick}>Create Watchlists</button>
         </div>
         <div className="col-md-2">
           <NavLink to={"/watchlist"}>View All</NavLink>
