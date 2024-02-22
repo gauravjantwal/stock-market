@@ -1,10 +1,11 @@
 import axios from "axios";
-import { storeUserError, storeUser } from './../slices/authSlice';
+import { storeUserError, storeUser, userSignedout } from './../slices/authSlice';
 import config from "../config/config.json";
 
 const authConfig = {
   loginEndpoint: config.REACT_APP_LOGIN_ENDPOINT,
   registerEndpoint: config.REACT_APP_SIGNUP_ENDPOINT,
+  logOutEndpoint: config.REACT_APP_LOGOUT_ENDPOINT
   // Add any other configuration properties you need
 };
 
@@ -40,7 +41,6 @@ async function loginUser(email, password, store) {
     if (!response.status === 200) {
       throw new Error('Login failed');
     }
-
     const userData = await response.data;
     localStorage.setItem('userData', JSON.stringify(userData));
     store.dispatch(storeUser(userData));
@@ -51,16 +51,29 @@ async function loginUser(email, password, store) {
   }
 }
 
-function logoutUser(store) {
-  try {
-    // Remove user data from localStorage
-    localStorage.removeItem('userData');
+async function logoutUser(store) {
+  try {    
+    const response = await axios({
+      url: authConfig.logOutEndpoint,
+      method: 'GET',
+      withCredentials: true
+    });
+    if (response.status === 204) {
+            // Remove user data from localStorage
+          localStorage.removeItem('userData');
+          store.dispatch(userSignedout(null));
+          return true;
+    }else{
+      // Dispatch action to update Redux store    
+      store.dispatch(storeUserError());
+    }
 
-    // Dispatch action to update Redux store
-    store.dispatch(storeUserError());
+    return false;
+    
   } catch (error) {
     console.error(`Error logging out: ${error}`);
     // Optionally handle error
+    return false;
   }
 }
 
