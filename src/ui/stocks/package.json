@@ -52,5 +52,19 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^6.5.1",
     "@types/bootstrap": "^5.2.10"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react",
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-react-jsx"
+    ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    }
   }
 }
