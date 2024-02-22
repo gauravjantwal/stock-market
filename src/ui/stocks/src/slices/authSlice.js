@@ -1,8 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+let userobject = null;
+if(localStorage.getItem('userData') != null || localStorage.getItem('userData') != undefined)
+{
+ userobject = JSON.parse(JSON.stringify(localStorage.getItem('userData')))
+}
+
 // initial state of authentication object
-const initialState = {
-    user: null,
+let initialState = {
+    user: userobject,
     isLoadingUser: false
   };
 

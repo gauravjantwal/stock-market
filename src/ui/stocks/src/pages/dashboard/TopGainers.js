@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import jfs from "../Images/jfs.svg";
 import { NavLink } from "react-router-dom";
-import CreateWatchlist from "../watchlists/create-watchlist";
 
 const TopGainers = (props) => {
   debugger;
@@ -27,7 +26,6 @@ const TopGainers = (props) => {
         </div>
         <div className="col-md-2">
           <button onClick={handleClick}>Create Watchlists</button>
-          {showCreateWatchlist && <CreateWatchlist />}
         </div>
         <div className="col-md-2">
           <NavLink to={"/watchlist"}>View All</NavLink>
