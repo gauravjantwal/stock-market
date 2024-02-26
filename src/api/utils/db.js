@@ -16,7 +16,6 @@ mongoose
 mongoose.Promise = global.Promise;  
 
 module.exports = {
-  User: require("../models/user"),
   CompanyOverview: require("../models/companyoverview"),
   NewsAndSentiments: require("../models/newsandsentiments"),
   CompanyIncomeStatement: require("../models/incomestatement"),
