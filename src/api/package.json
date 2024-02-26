@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand --detectOpenHandles",
     "start": "nodemon index.js"
   },
   "keywords": [],
@@ -32,7 +32,8 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "mongodb-memory-server": "^9.1.6"
   },
   "jest": {
     "testEnvironment": "node",
