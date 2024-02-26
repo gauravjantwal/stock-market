@@ -1,10 +1,10 @@
-const { AuthorizationError, BadRequestError } = require('../models/errors');
-const db = require('./utils/db.mock');
-const User = require('../models/user');
+const { AuthorizationError, BadRequestError } = require('../../models/errors');
+const db = require('../utils/db.mock');
+const User = require('../../models/user');
 const {
   userSignUp,
   userSignIn
-} = require("../services/userService");
+} = require("../../services/userService");
 
 beforeAll(async () => await db.ConnectDatabase());
 afterAll(async () => await db.DisconnectDatabase());
