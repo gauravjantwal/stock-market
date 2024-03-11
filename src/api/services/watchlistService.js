@@ -10,6 +10,7 @@ exports.getAllWatchlists = async (userid) => {
 
     return allWatchlists;
 };
+
 exports.getWatchlistById = async (userid, watchlistId) => {
 
     const watchlist = await Watchlists.findOne({ _id: watchlistId, userid: userid }).select(watchlistProjection);
@@ -21,11 +22,13 @@ exports.getWatchlistById = async (userid, watchlistId) => {
 
     return watchlist;
 };
+
 exports.createWatchlist = async (userid, name) => {
     const watchlist = new Watchlists({ userid, name });
 
     await watchlist.save(watchlist);
-}
+};
+
 exports.updateWatchlistById = async (userid, watchlistId, watchlistName) => {
     // Find the watchlist by ID
     const watchlist = await Watchlists.findOne({ _id: watchlistId, userid: userid });
@@ -40,6 +43,7 @@ exports.updateWatchlistById = async (userid, watchlistId, watchlistName) => {
 
     return watchlist;
 };
+
 exports.deleteWatchlistById = async (userid, watchlistId) => {
     // Find the watchlist by ID
     const watchlist = await Watchlists.findOne({ _id: watchlistId, userid: userid });
@@ -62,12 +66,14 @@ exports.getAllBookmarkByWatchlistId = async (userid, watchlistId) => {
         throw new NotFoundError('Watchlist not found');
     }
     return watchlist.bookmarks;
-}
+};
+
 exports.createBookmarkByWatchlistId = async (userid, watchlistId, symbol) => {
     await Watchlists.findOneAndUpdate({ _id: watchlistId, userid: userid }, { $addToSet: { bookmarks: symbol } });
     return symbol;
-}
+};
+
 exports.deleteBookmarkByWatchlistId = async (userid, watchlistId, symbol) => {
     await Watchlists.findOneAndUpdate({ _id: watchlistId, userid: userid }, { $pull: { bookmarks: symbol } });
     return symbol;
-}
+};
